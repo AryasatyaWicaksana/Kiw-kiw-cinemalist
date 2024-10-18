@@ -1,0 +1,37 @@
+/* Custom animation for the button */
+.btn-outline-danger {
+    overflow: hidden;
+    position: relative;
+}
+
+.btn-outline-danger:hover {
+    background-color: red;
+    color: #fff;
+}
+
+.btn-outline-danger .animation-layer {
+    position: absolute;
+    display: block;
+}
+
+.btn-outline-danger span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, red, transparent);
+    animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+    0% {
+        left: -100%;
+    }
+
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+
+/* (Continue for the rest of the button's animation as needed) */
