@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../../Bootstrap/css/bootstrap.min.css" rel="stylesheet" >
     <link rel="stylesheet" href="style.css">
-    <title>Login Page</title>
+    <title>Register Page</title>
 </head>
 <body class="bg-dark text-white">
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card bg-dark p-4" style="width: 22rem; border-radius: 10px; box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);">
             <div class="card-body">
-                <h2 class="text-center mb-4">Login</h2>
-                <form action="login.html">
+                <h2 class="text-center mb-4">Register</h2>
+                <form action="register.html" method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label text-light">Username</label>
                         <input type="text" class="form-control bg-dark text-white border-0 border-bottom" id="username" name="username" required>
@@ -21,12 +21,12 @@
                         <label for="password" class="form-label text-light">Password</label>
                         <input type="password" class="form-control bg-dark text-white border-0 border-bottom" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-outline-danger w-100 position-relative">
-                        Login
+                    <button type="submit" name="register" class="btn btn-outline-danger w-100 position-relative">
+                        Register
                         <span class="animation-layer"></span>
                     </button>
                     <div class="text-center mt-3">
-                        <p class="text-light">Don't have an account? <a href="register.html" class="text-danger">Register</a></p>
+                        <p class="text-light">Already have an account? <a href="login.html" class="text-danger">Login</a></p>
                     </div>
                 </form>
             </div>
