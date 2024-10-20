@@ -1,11 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Data Diri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+    <div class="container">
+        <h1 class="text-center">Profile</h1>
+
+        <div class="profile-photo text-center mb-3">
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile Photo">
+        </div>
+
+        <div class="profile-item">
+            <label>Nama:</label>
+            <span class="user-name">Admin</span>
+        </div>
+
+        <div class="profile-item">
+            <label>My Collections</label>
+            <div class="row mt-3">
+                <!-- Product 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/300x200" alt="Product 1">
+                        <h5 class="mt-2">Tittle 1</h5>
+                        <p>Know More</p>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/300x200" alt="Product 2">
+                        <h5 class="mt-2">Tittle 2</h5>
+                        <p>Know More</p>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/300x200" alt="Product 3">
+                        <h5 class="mt-2">Tittle 3</h5>
+                        <p>Know More</p>
+                    </div>
+                </div>
+                <!-- Product 4 -->
+                <div class="col-md-4 mb-4">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/300x200" alt="Product 4">
+                        <h5 class="mt-2">Tittle 4</h5>
+                        <p>Know More</p>
+                    </div>
+                </div>
+                <!-- Product 5 -->
+                <div class="col-md-4 mb-4">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/300x200" alt="Product 5">
+                        <h5 class="mt-2">Tittle 5</h5>
+                        <p>Know More</p>
+                    </div>
+                </div>
+                <!-- Product 6 -->
+                <div class="col-md-4 mb-4">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/300x200" alt="Product 6">
+                        <h5 class="mt-2">Tittle 6</h5>
+                        <p>Know More</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form action="profil.php" method="POST" class="text-center">
+            <button type="submit" class="logout-btn" name="logout">Logout</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
