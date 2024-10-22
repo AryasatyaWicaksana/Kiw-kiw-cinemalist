@@ -3,15 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Kiw Kiw Cinema List</title>
 </head>
-<body>
+<body> 
     <header>
-        <div>
-            <a href="../Profile Page/profile.html">
-                <img src="../Assets/img/blank-profile-picture.png" alt="Profile Picture">
-            </a>
-    </div>
+        <h1 class="title">Kiw Kiw Cinema</h1>
+        <div class="header-right">
+            <form id="form">
+                <input type="text" id="search" class="search" placeholder="Search...">
+            </form>
+            <a href="../Profile Page/profile.html" class="Profile-btn">Profile</a>
+        </div>
     </header>
+    
+    <main id="main"></main>
+    <div class="pagination">
+        <div class="page" id="prev">Previous Page</div>
+        <div class="current" id="current">1</div>
+        <div class="page" id="next">Next Page</div>
+    </div>
+
 </body>
 </html>
