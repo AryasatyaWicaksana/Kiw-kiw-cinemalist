@@ -105,3 +105,26 @@ main{
     font-weight: 600;
 }
 
+#tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.tag {
+    padding: 8px 12px;
+    background-color: #555;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.tag:hover {
+    background-color: #777;
+}
+
+.highlight {
+    background-color: #4caf50;
+    color: #fff;
+}
