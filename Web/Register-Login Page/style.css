@@ -1,0 +1,150 @@
+.card-body .mb-3 {
+    position: relative;
+}
+
+.card-body .mb-3 input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    margin-bottom: 30px;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.card-body .mb-3 label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.card-body .mb-3 input:focus~label,
+.card-body .mb-3 input:valid~label {
+    top: -20px;
+    left: 0;
+    color: red;
+    font-size: 12px;
+}
+
+.form-control:focus {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: inherit;
+    outline: 0;
+    box-shadow: none;
+}
+
+/* Custom animation for the button */
+.btn-outline-danger {
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    transition: .5s;
+}
+
+.btn-outline-danger:hover {
+    background-color: red;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px red,
+        0 0 25px red,
+        0 0 50px red,
+        0 0 100px red;
+}
+
+.btn-outline-danger .animation-layer {
+    position: absolute;
+    display: block;
+}
+
+.btn-outline-danger span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, red, transparent);
+    animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+    0% {
+        left: -100%;
+    }
+
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+
+.btn-outline-danger span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, red, transparent);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s;
+}
+
+@keyframes btn-anim2 {
+    0% {
+        top: -100%;
+    }
+
+    50%,
+    100% {
+        top: 100%;
+    }
+}
+
+.btn-outline-danger span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, red, transparent);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s;
+}
+
+@keyframes btn-anim3 {
+    0% {
+        right: -100%;
+    }
+
+    50%,
+    100% {
+        right: 100%;
+    }
+}
+
+.btn-outline-danger span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, red, transparent);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s;
+}
+
+@keyframes btn-anim4 {
+    0% {
+        bottom: -100%;
+    }
+
+    50%,
+    100% {
+        bottom: 100%;
+    }
+}
+
+/* (Continue for the rest of the button's animation as needed) */
