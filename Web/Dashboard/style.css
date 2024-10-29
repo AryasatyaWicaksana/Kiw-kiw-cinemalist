@@ -217,7 +217,7 @@ main{
     overflow-x: hidden;
     transition: 0.5s;
 }
-  
+
 .overlay-content {
     position: relative;
     top: 10%;
@@ -249,9 +249,9 @@ main{
 @media screen and (max-height: 450px) {
     .overlay a {font-size: 20px}
     .overlay .closebtn {
-      font-size: 40px;
-      top: 15px;
-      right: 35px;
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
     }
 }
 
