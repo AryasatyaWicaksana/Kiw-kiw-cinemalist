@@ -105,26 +105,29 @@ main{
     font-weight: 600;
 }
 
-#tags {
-    display: flex;
+#tags{
+    width:80%;
+    display:flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
 }
 
-.tag {
-    padding: 8px 12px;
-    background-color: #555;
-    border-radius: 20px;
+.tag{
+    color: var(--text-color);
+    padding:10px 20px;
+    background-color: var(--highlight-color);
+    border-radius: 50px;
+    margin:5px;
+    display:inline-block;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
 
-.tag:hover {
-    background-color: #777;
+.tag.highlight{
+    background-color: #fff;
+    color: var(--highlight-color);
 }
-
-.highlight {
-    background-color: #4caf50;
-    color: #fff;
+.no-results{
+    color: var(--text-color);
 }
