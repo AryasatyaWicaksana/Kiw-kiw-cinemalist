@@ -45,6 +45,7 @@ header{
     text-decoration: none;
     font-weight: bold;
     font-size: 1rem;
+    text-align: center;
 }
 
 .profile-btn:hover {
@@ -296,4 +297,50 @@ main{
 
 .dots .dot.active{
     border-color: var(--highlight-color);
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .header-right {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .profile-btn, .search {
+        width: 100%;
+        margin: 5px 0;
+        font-size: 1rem;
+    }
+
+    .movie {
+        width: 90%;
+        margin: 1rem 0;
+    }
+}
+
+/* Tampilan untuk Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .movie {
+        width: 45%;
+        margin: 1rem;
+    }
+}
+
+/* Tampilan untuk Desktop */
+@media (min-width: 1024px) {
+    .movie {
+        width: 300px;
+    }
+
+    .profile-btn {
+        padding: 0.5rem 1.5rem;
+    }
 }
