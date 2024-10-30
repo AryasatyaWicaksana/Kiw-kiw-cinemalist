@@ -23,7 +23,9 @@ header{
     align-items: center;
     padding: 1rem;
     background-color: var(--secondary-color);
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .header-right {
