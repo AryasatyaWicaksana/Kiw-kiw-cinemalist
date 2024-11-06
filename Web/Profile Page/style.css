@@ -45,7 +45,8 @@ label {
     border: none;
     background-color: transparent;
     transition: 0.5s;
-    margin-top: 40px;
+    margin-top: 50px;
+    margin-bottom: 20px;
     cursor: pointer;
 }
 

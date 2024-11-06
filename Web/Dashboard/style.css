@@ -42,18 +42,28 @@ header{
 .profile-btn {
     background-color: var(--highlight-color);
     color: var(--text-color);
-    padding: 0.5rem 1rem;
+    padding: 1rem;
     border-radius: 50px;
     text-decoration: none;
     font-weight: bold;
     font-size: 1rem;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: padding 0.3s ease;
 }
 
 .profile-btn:hover {
     background-color: #fff;
     color: var(--highlight-color);
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.profile-btn img {
+    max-width: 3rem;
+    height: auto;
+    border-radius: 50%;
 }
 
 .search{
@@ -316,10 +326,17 @@ main{
         margin-top: 10px;
     }
 
-    .profile-btn, .search {
+    .search {
         width: 100%;
         margin: 5px 0;
         font-size: 1rem;
+    }
+
+    .profile-btn img {
+        position: fixed;
+        top: 0;
+        right: 0;
+        margin: 1.8rem;
     }
 
     .movie {

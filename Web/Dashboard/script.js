@@ -4,6 +4,24 @@ const API_URL = BASE_URL + '/discover/movie?sort_by=popularity.desc&'+API_KEY;
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const searchURL = BASE_URL + '/search/movie?'+API_KEY;
 
+document.addEventListener("DOMContentLoaded", function() {
+  const profilePicture = document.getElementById('profile-picture');
+  const profileButton = document.querySelector('.profile-btn');
+
+  function updatePadding() {
+      if (profilePicture.complete && profilePicture.naturalWidth !== 0) {
+          profileButton.style.padding = '0';
+      } else {
+          profileButton.style.padding = '1rem';
+      }
+  }
+
+  updatePadding();
+
+  profilePicture.onload = updatePadding;
+  profilePicture.onerror = updatePadding;
+});
+
 const genres = [
     {
       "id": 28,
@@ -167,7 +185,6 @@ getMovies(API_URL);
 function getMovies(url) {
   lastUrl = url;
     fetch(url).then(res => res.json()).then(data => {
-        console.log(data.results)
         if(data.results.length !== 0){
             showMovies(data.results);
             currentPage = data.page;
