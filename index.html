@@ -8,11 +8,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body id="home" class="text-white" style="background-color: #302e2e;">
-    <header class="bg-dark py-3 sticky-top" style="box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5)">
-        <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="text-white h4">Kiw Kiw Cinema List</h1>
-            <nav>
-                <ul class="nav">
+    <header class="navbar navbar-expand-lg bg-dark py-3 sticky-top" style="box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5)">
+        <div class="container-fluid">
+            <h1 class="navbar-brand text-white h4 ms-3">Kiw Kiw Cinema List</h1>
+            <button class="navbar-toggler bg-white-" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <nav class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#home">Home</a>
                     </li>
@@ -20,28 +23,28 @@
                         <a class="nav-link text-white" href="#about">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="login nav-link" href="Web/Register-Login Page/login.html">Login</a>
+                        <a class="login nav-link me-3" href="Web/Register-Login Page/login.html">Login</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
+    
     <main class="py-5">
-
     <section>
         <div id="carouselExampleSlidesOnly" class="carousel slide container bg-dark" data-bs-ride="carousel" 
             style="margin-top: 30px; border-radius: 10px; box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5); max-height: 100vh;">
             <div class="carousel-inner">
-                <div class="carousel-item active text-center" style="height: 100vh;">
-                    <img src="Web/Assets/img/picture1.jpg" class="d-block w-100 h-100 img-fluid" alt="Slide 1" 
+                <div class="carousel-item active text-center" style="height: 85vh;">
+                    <img src="Web/Assets/img/blank-profile-picture.png" class="d-block w-100 h-100 img-fluid" alt="Slide 1" 
                     style="object-fit: cover; border-radius: 10px;">
                 </div>
-                <div class="carousel-item text-center" style="height: 100vh;">
-                    <img src="Web/Assets/img/picture2.jpg" class="d-block w-100 h-100 img-fluid" alt="Slide 2" 
+                <div class="carousel-item text-center" style="height: 85vh;">
+                    <img src="Web/Assets/img/blank-profile-picture.png" class="d-block w-100 h-100 img-fluid" alt="Slide 2" 
                     style="object-fit: cover; border-radius: 10px;">
                 </div>
-                <div class="carousel-item text-center" style="height: 100vh;">
-                    <img src="Web/Assets/img/picture3.jpg" class="d-block w-100 h-100 img-fluid" alt="Slide 3" 
+                <div class="carousel-item text-center" style="height: 85vh;">
+                    <img src="Web/Assets/img/blank-profile-picture.png" class="d-block w-100 h-100 img-fluid" alt="Slide 3" 
                     style="object-fit: cover; border-radius: 10px;">
                 </div>
             </div>
@@ -65,12 +68,13 @@
             favorite film.
         </p>
     </section>
-
     </main>
+
     <footer class="bg-dark text-white text-center py-3" style="box-shadow: 0 -15px 25px rgba(0, 0, 0, 0.5);">
         <p>Copyright</p>
         <p>Kiw Kiw Cinema List</p>
     </footer>
+
     <script src="Bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
