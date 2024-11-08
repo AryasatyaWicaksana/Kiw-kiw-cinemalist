@@ -111,11 +111,10 @@ main{
 }
 
 .current{
-    padding: 10px 20px;
-    border-radius: 50%;
-    border: 5px solid var(--highlight-color);
     font-size: 20px;
     font-weight: 600;
+    padding: 1px 17px; 
+    border-bottom: 5px solid red; 
 }
 
 #tags{
@@ -141,6 +140,12 @@ main{
     background-color: #fff;
     color: var(--highlight-color);
 }
+
+.tag:hover {
+    background-color: white; 
+    color: red; 
+}
+
 .no-results{
     color: var(--text-color);
 }
