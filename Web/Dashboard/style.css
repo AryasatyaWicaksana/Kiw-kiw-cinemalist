@@ -27,6 +27,22 @@ header{
     z-index: 1;
 }
 
+.logo-img {
+    height: 40px;
+    margin-left: 30px; /* Adjust as needed */
+    margin-right: 10px;
+}
+
+.d-flex.align-items-center {
+    display: flex;
+    align-items: center;
+}
+
+.d-flex.align-items-center img {
+    height: 60px;
+    margin-right: 0px;
+}
+
 .header-right {
     display: flex;
     align-items: center;
