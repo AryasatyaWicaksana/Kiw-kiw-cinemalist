@@ -8,7 +8,7 @@
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="Web/Assets/img/Logo kiw-kiw.png"
+    <link rel="icon" href="Web/Assets/img/Logo kiw-kiw.png">
 </head>
 
 <body data-bs-smooth-scroll="true">
@@ -30,7 +30,7 @@
                         <a class="nav-element nav-link text-white" href="#about">About Us</a>
                     </li>
                     <li class="nav-item p-1">
-                        <a class="login nav-link mx-3 text-center" href="Web/Register-Login Page/login.html">Login</a>
+                        <a class="login nav-link mx-3 text-center" href="../Kiw-kiw-cinemalist/Web/Register-Login-Page/login.php">Login</a>
                     </li>
                 </ul>
             </nav>

@@ -1,3 +1,27 @@
+<?php
+    require_once '../service/database.php';
+
+    if (isset($_POST['register'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        if (empty($username) || empty($password)) {
+            echo "Username dan password wajib diisi!";
+            exit();
+        }
+        
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $sql = "INSERT INTO users (username, password) VALUES ($1, $2)";
+        $result = pg_query_params($dbconn, $sql, array($username, $password));
+
+        if ($result){
+            header('Location: login.php');
+        } else {
+            echo preg_last_error($result);
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,15 +31,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="../Assets/img/Logo kiw-kiw.png"
-    <title>Login Page</title>
+    <link rel="icon" href="../Assets/img/Logo kiw-kiw.png">
+    <title>Register Page</title>
 </head>
 <body class="text-white" style="background-color: #302e2e;">
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card bg-dark p-4" style="width: 22rem; border-radius: 10px; box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);">
             <div class="card-body">
-                <h2 class="text-center mb-4 text-white">Login</h2>
-                <form action="../Dashboard/dashboard.html">
+                <h2 class="text-center mb-4 text-white">Register</h2>
+                <form action="register.php" method="POST">
                     <div class="mb-3">
                         <input type="text" class="form-control bg-dark text-white border-0 border-bottom" id="username" name="username" autocomplete="off" required>
                         <label for="username" class="form-label text-light">Username</label>
@@ -27,15 +51,15 @@
                             <i class="bi bi-eye-fill" id="toggleIcon"></i>
                         </button>
                     </div>
-                    <button type="submit" name="login" class="btn btn-outline-danger w-100 position-relative mb-1">
+                    <button type="submit" name="register" class="btn btn-outline-danger w-100 position-relative mb-1">
                         <span class="animation-layer"></span>
                         <span class="animation-layer"></span>
                         <span class="animation-layer"></span>
                         <span class="animation-layer"></span>
-                        Login
+                        Register
                     </button>
                     <div class="text-center mt-3">
-                        <p class="text-light">Don't have an account? <a href="register.html" class="text-danger">Register</a></p>
+                        <p class="text-light">Already have an account? <a href="login.php" class="text-danger">Login</a></p>
                     </div>
                 </form>
             </div>

@@ -7,11 +7,11 @@
     <link href="../../Bootstrap/css/bootstrap.min.css" rel="stylesheet" >
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="../Assets/img/Logo kiw-kiw.png"
+    <link rel="icon" href="../Assets/img/Logo kiw-kiw.png">
 </head>
 <body>
     <div class="container position-relative">
-        <a href="../Dashboard/dashboard.html" class="back-button position-absolute top-0 end-0 mt-2 me-3" style="font-size: 25px;">X</a>
+        <a href="../Dashboard/dashboard.php" class="back-button position-absolute top-0 end-0 mt-2 me-3" style="font-size: 25px;">X</a>
         <h1 class="text-center mt-3">Profile</h1>
         <div class="profile-photo text-center mb-3">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile Photo">
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <form action="../../index.html" class="text-center">
+        <form action="../../index.php" class="text-center">
             <button type="submit" class="logout-btn" name="logout">Logout</button>
         </form>
     </div>
