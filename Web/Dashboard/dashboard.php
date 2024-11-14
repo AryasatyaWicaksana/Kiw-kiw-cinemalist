@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <link rel="icon" href="../Assets/img/Logo kiw-kiw.png"
+    <link rel="icon" href="../Assets/img/Logo kiw-kiw.png">
     <title>Kiw Kiw Cinema List</title>
 </head>
 <body> 
     <header>
-         <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center">
             <img class="me-2" src="../Assets/img/Logo kiw-kiw.png" alt="Kiw Kiw Logo" class="logo-img">
             <h1 class="title">Kiw Kiw Cinema List</h1>
         </div>
@@ -18,7 +18,7 @@
             <form id="form">
                 <input type="text" id="search" class="search" placeholder="Search...">
             </form>
-            <a href="../Profile Page/profile.html" class="profile-btn">
+            <a href="../Profile Page/profile.php" class="profile-btn">
                 <img src="../Assets/img/blank-profile-picture.png" alt="Profile Picture" id="profile-picture">
             </a>
         </div>
