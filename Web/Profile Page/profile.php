@@ -1,3 +1,19 @@
+<?php
+    session_start();
+
+    if(isset($_SESSION["is_login"]) == false) {
+        header("location: ../../index.php");
+        exit();
+    }
+
+    if (isset($_POST['logout'])) {
+        session_unset();
+        session_destroy();
+        header("location: ../../index.php");
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +34,7 @@
         </div>
         <div class="profile-item">
             <label>Name:</label>
-            <span class="user-name">Admin</span>
+            <span class="user-name"><?= $_SESSION["username"] ?></span>
         </div>
         <div class="profile-item">
             <label>My Collections</label>
@@ -73,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <form action="../../index.php" class="text-center">
+        <form action="profile.php" method="POST" class="text-center">
             <button type="submit" class="logout-btn" name="logout">Logout</button>
         </form>
     </div>

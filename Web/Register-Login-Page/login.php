@@ -1,31 +1,47 @@
 <?php
-    require_once '../service/database.php';
+session_start();
+require_once '../service/database.php';
 
-    if (isset($_POST['login'])) {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+$login_message = "";
 
-        if (empty($username) || empty($password)) {
-            echo "Username dan password wajib diisi!";
-            exit();
-        }
+if (isset($_SESSION["is_login"])) {
+    header("location: ../Dashboard/dashboard.php");
+    exit();
+}
 
-        $sql = "SELECT * FROM users WHERE username = $1";
-        $result = pg_query_params($dbconn, $sql, array($username));
+if (isset($_POST['login'])) {
+    $username = trim($_POST['username']);
+    $password = $_POST['password'];
 
-        if ($result && pg_num_rows($result) > 0) {
-            $user = pg_fetch_assoc($result);
-            if (password_verify($password, $user['password'])) {
-                header('Location: ../Dashboard/dashboard.php');
-                exit();
+    if (empty($username) || empty($password)) {
+        $login_message = "Username dan password wajib diisi!";
+    } else {
+        try {
+            $sql = "SELECT * FROM users WHERE username = $1";
+            $result = pg_query_params($dbconn, $sql, array($username));
+
+            if ($result && pg_num_rows($result) > 0) {
+                $user = pg_fetch_assoc($result);
+
+                if (password_verify($password, $user['password'])) {
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['username'] = $user['username'];
+                    $_SESSION["is_login"] = true;
+
+                    header('Location: ../Dashboard/dashboard.php');
+                    exit();
+                } else {
+                    $login_message = "Username atau password salah.";
+                }
             } else {
-                echo "Username atau password salah.";
+                $login_message = "Akun dengan username tersebut tidak ditemukan.";
             }
+        } catch (Exception $e) {
+            $login_message = "Terjadi kesalahan saat login. Silakan coba lagi.";
         }
-        echo "Belum ada akun";
     }
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +59,7 @@
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card bg-dark p-4" style="width: 22rem; border-radius: 10px; box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);">
             <div class="card-body">
+                <i><?= $login_message ?></i>
                 <h2 class="text-center mb-4 text-white">Login</h2>
                 <form action="login.php" method="POST">
                     <div class="mb-3">
@@ -50,7 +67,7 @@
                         <label for="username" class="form-label text-light">Username</label>
                     </div>
                     <div class="mb-3">
-                        <input type="password" class="form-control bg-dark text-white border-0 border-bottom" id="password" name="password" required>
+                        <input type="password" class="form-control bg-dark text-white border-0 border-bottom" id="password" name="password" autocomplete="off" required>
                         <label for="password" class="form-label text-light">Password</label>
                         <button type="button" class="btn btn-link text-white position-absolute border-0" id="togglePassword">
                             <i class="bi bi-eye-fill" id="toggleIcon"></i>

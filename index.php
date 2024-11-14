@@ -1,3 +1,12 @@
+<?php
+    session_start();
+
+    if (isset($_SESSION["is_login"])) {
+        header('location: Web/Dashboard/dashboard.php');
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en" style="scroll-padding-top: 50px; height: 50px;">
 <head>
