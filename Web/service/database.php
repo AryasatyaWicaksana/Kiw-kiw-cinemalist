@@ -12,8 +12,11 @@
     $pass =  $_ENV['DB_PASS'];
 
     try {
-        $dbconn = pg_connect("host = $host port = $port dbname = $dbname user = $user password = $pass");
-    } catch (PDOException $e) {
-        die("Koneksi gagal: " . preg_last_error());
+        $dbconn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$pass");
+        if (!$dbconn) {
+            throw new Exception("Koneksi gagal: " . pg_last_error());
+        }
+    } catch (Exception $e) {
+        die($e->getMessage());
     }
 ?>
