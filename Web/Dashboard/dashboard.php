@@ -43,9 +43,9 @@
 
     <main id="main"></main>
     <div class="pagination">
-        <div class="page" id="prev">Previous Page</div>
-        <div class="current" id="current">1</div>
-        <div class="page" id="next">Next Page</div>
+        <div class="page" id="prev"></div>
+        <div class="current" id="current"></div>
+        <div class="page" id="next"></div>
     </div>
     <script src="script.js"></script>
 </body>

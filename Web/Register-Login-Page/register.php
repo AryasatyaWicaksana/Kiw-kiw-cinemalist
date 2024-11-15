@@ -51,9 +51,12 @@ if (isset($_POST['register'])) {
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card bg-dark p-4" style="width: 22rem; border-radius: 10px; box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);">
             <div class="card-body">
-                <i><?= $register_message ?></i>
                 <h2 class="text-center mb-4 text-white">Register</h2>
                 <form action="register.php" method="POST">
+                    <div class="mb-3">
+                        <input type="text" class="form-control bg-dark text-white border-0 border-bottom" id="email" name="email" autocomplete="off" required>
+                        <label for="email" class="form-label text-light">Email</label>
+                    </div>
                     <div class="mb-3">
                         <input type="text" class="form-control bg-dark text-white border-0 border-bottom" id="username" name="username" autocomplete="off" required>
                         <label for="username" class="form-label text-light">Username</label>
@@ -65,6 +68,14 @@ if (isset($_POST['register'])) {
                             <i class="bi bi-eye-fill" id="toggleIcon"></i>
                         </button>
                     </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control bg-dark text-white border-0 border-bottom" id="confirm-password" name="confirm-password" autocomplete="off" required>
+                        <label for="confirm-password" class="form-label text-light">Confirm Password</label>
+                        <button type="button" class="btn btn-link text-white position-absolute border-0" id="togglePassword">
+                            <i class="bi bi-eye-fill" id="toggleIcon"></i>
+                        </button>
+                    </div>
+                    <p class="text-danger mt-5 mb-1"><?= $register_message ?></p>
                     <button type="submit" name="register" class="btn btn-outline-danger w-100 position-relative mb-1">
                         <span class="animation-layer"></span>
                         <span class="animation-layer"></span>

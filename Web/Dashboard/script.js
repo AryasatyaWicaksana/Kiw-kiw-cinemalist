@@ -192,7 +192,13 @@ function getMovies(url) {
             prevPage = currentPage - 1;
             totalPages = data.total_pages;
 
+            if (currentPage === 1) {
+              prev.innerText = '';
+            } else {
+              prev.innerText = prevPage;
+            }
             current.innerText = currentPage;
+            next.innerText = nextPage;
 
             if(currentPage <= 1){
                 prev.classList.add('disabled');
@@ -208,7 +214,7 @@ function getMovies(url) {
             tagsEl.scrollIntoView({behavior : 'smooth'})
 
         }else{
-            main.innerHTML= `<h1 class="no-results">No Results Found</h1>`
+            main.innerHTML= <h1 class="no-results">No Results Found</h1>
         }
     })
 }
@@ -312,7 +318,7 @@ function openNav(movie) {
         activeSlide=0;
         showVideos();
       }else{
-        overlayContent.innerHTML = `<h1 class="no-results">No Results Found</h1>`
+        overlayContent.innerHTML = <h1 class="no-results">No Results Found</h1>
       }
     }
   })

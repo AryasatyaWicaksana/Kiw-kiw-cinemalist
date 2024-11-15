@@ -59,7 +59,6 @@ if (isset($_POST['login'])) {
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card bg-dark p-4" style="width: 22rem; border-radius: 10px; box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);">
             <div class="card-body">
-                <i><?= $login_message ?></i>
                 <h2 class="text-center mb-4 text-white">Login</h2>
                 <form action="login.php" method="POST">
                     <div class="mb-3">
@@ -73,6 +72,7 @@ if (isset($_POST['login'])) {
                             <i class="bi bi-eye-fill" id="toggleIcon"></i>
                         </button>
                     </div>
+                    <p class="text-danger mt-5 mb-1"><?= $login_message ?></p>
                     <button type="submit" name="login" class="btn btn-outline-danger w-100 position-relative mb-1">
                         <span class="animation-layer"></span>
                         <span class="animation-layer"></span>
