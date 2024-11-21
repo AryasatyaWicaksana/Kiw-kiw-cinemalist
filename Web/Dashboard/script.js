@@ -214,44 +214,61 @@ function getMovies(url) {
             tagsEl.scrollIntoView({behavior : 'smooth'})
 
         }else{
-            main.innerHTML= <h1 class="no-results">No Results Found</h1>
+            main.innerHTML= '<h1 class="no-results">No Results Found</h1>'
         }
     })
 }
 
 
 function showMovies(data) {
-    main.innerHTML = '';
+  main.innerHTML = '';
 
-    data.forEach(movie => {
-        const {title, poster_path, vote_average, overview, id} = movie;
-        const movieEl = document.createElement('div');
-        movieEl.classList.add('movie');
-        movieEl.innerHTML = `
-            <img src="${poster_path? IMG_URL+poster_path: "http://via.placeholder.com/1080x1580" }" alt="${title}">
+  data.forEach(movie => {
+      const {title, poster_path, vote_average, overview, id} = movie;
+      const movieEl = document.createElement('div');
+      movieEl.classList.add('movie');
+      movieEl.innerHTML = `
+          <img src="${poster_path ? IMG_URL + poster_path : "http://via.placeholder.com/1080x1580"}" alt="${title}">
+          <div class="movie-info">
+              <h3>${title}</h3>
+              <span class="${getColor(vote_average)}">${vote_average}</span>
+          </div>
+          <div class="button-container">
+              <button class="like-btn" id="like-${id}"><span class="heart-icon" id="heart-${id}">❤️</span></button> <!-- Button Like -->
+              <button class="add-to-list-btn" id="add-${id}"><span class="check-icon" id="check-${id}">+</span></button> <!-- Button Add to List -->
+          </div>
+          <div class="overview">
+              <h3>Overview</h3>
+              ${overview}
+              <br/> 
+              <button class="know-more" id="${id}">Know More</button>
+          </div>
+      `;
 
-            <div class="movie-info">
-                <h3>${title}</h3>
-                <span class="${getColor(vote_average)}">${vote_average}</span>
-            </div>
+      main.appendChild(movieEl);
 
-            <div class="overview">
+      let isLiked = false;
+      let isAddedToList = false;
 
-                <h3>Overview</h3>
-                ${overview}
-                <br/> 
-                <button class="know-more" id="${id}">Know More</button
-            </div>
-        
-        `
+      document.getElementById(`add-${id}`).addEventListener('click', () => {
+          isAddedToList = !isAddedToList;
+          const checkIcon = document.getElementById(`check-${id}`);
+          checkIcon.textContent = isAddedToList ? '✔️' : '+';
+          console.log(isAddedToList ? `Added movie ID: ${id} to list` : `Removed movie ID: ${id} from list`);
+      });
 
-        main.appendChild(movieEl);
+      document.getElementById(`like-${id}`).addEventListener('click', () => {
+          isLiked = !isLiked;
+          const heartIcon = document.getElementById(`heart-${id}`);
+          heartIcon.style.color = isLiked ? 'red' : 'white';
+          console.log(isLiked ? `Liked movie ID: ${id}` : `Unliked movie ID: ${id}`);
+      });
 
-        document.getElementById(id).addEventListener('click', () => {
-            console.log(id)
-            openNav(movie)
-        })
-    })
+      document.getElementById(id).addEventListener('click', () => {
+          console.log(id);
+          openNav(movie);
+      });
+  });
 }
 
 function getColor(vote) {
@@ -318,7 +335,7 @@ function openNav(movie) {
         activeSlide=0;
         showVideos();
       }else{
-        overlayContent.innerHTML = <h1 class="no-results">No Results Found</h1>
+        overlayContent.innerHTML = '<h1 class="no-results">No Results Found</h1>'
       }
     }
   })
