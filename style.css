@@ -38,3 +38,27 @@ body {
 footer p a{
   text-decoration: none;
 }
+
+footer .d-flex {
+  justify-content: center; 
+}
+
+.text-center {
+  margin: 0 8rem; 
+}
+
+.location {
+  margin-right: 2rem ; 
+}
+
+.follow-us {
+  margin-left: 2rem; 
+}
+
+.icon {
+  font-size: 2rem; 
+}
+
+.icon:hover {
+  color: #ccc; 
+}
