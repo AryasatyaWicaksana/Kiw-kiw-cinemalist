@@ -227,6 +227,7 @@ function showMovies(data) {
       const {title, poster_path, vote_average, overview, id} = movie;
       const movieEl = document.createElement('div');
       movieEl.classList.add('movie');
+
       movieEl.innerHTML = `
           <img src="${poster_path ? IMG_URL + poster_path : "http://via.placeholder.com/1080x1580"}" alt="${title}">
           <div class="movie-info">
@@ -234,8 +235,8 @@ function showMovies(data) {
               <span class="${getColor(vote_average)}">${vote_average}</span>
           </div>
           <div class="button-container">
-              <button class="like-btn" id="like-${id}"><span class="heart-icon" id="heart-${id}">❤️</span></button> <!-- Button Like -->
-              <button class="add-to-list-btn" id="add-${id}"><span class="check-icon" id="check-${id}">+</span></button> <!-- Button Add to List -->
+              <button class="like-btn" id="like-${id}"><span class="heart-icon" id="heart-${id}">❤️</span></button>
+              <button class="add-to-list-btn" id="add-${id}"><span class="check-icon" id="check-${id}">+</span></button>
           </div>
           <div class="overview">
               <h3>Overview</h3>
