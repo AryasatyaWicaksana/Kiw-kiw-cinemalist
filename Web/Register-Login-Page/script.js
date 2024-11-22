@@ -1,15 +1,16 @@
-document.getElementById('togglePassword').addEventListener('click', function () {
-    const passwordInput = document.getElementById('password');
-    const passwordIcon = document.getElementById('toggleIcon');
-    
-    // Toggle the type attribute
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        passwordIcon.classList.remove('bi-eye-fill');
-        passwordIcon.classList.add('bi-eye-slash-fill');
-    } else {
-        passwordInput.type = 'password';
-        passwordIcon.classList.remove('bi-eye-slash-fill');
-        passwordIcon.classList.add('bi-eye-fill');
-    }
+// Toggle password visibility
+document.getElementById('togglePassword1').addEventListener('click', function () {
+    const passwordField = document.getElementById('password');
+    const icon1 = document.getElementById('toggleIcon1');
+    passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+    icon1.classList.toggle('bi-eye-fill');
+    icon1.classList.toggle('bi-eye-slash-fill');
+});
+
+document.getElementById('togglePassword2').addEventListener('click', function () {
+    const confirmPasswordField = document.getElementById('confirm-password');
+    const icon2 = document.getElementById('toggleIcon2');
+    confirmPasswordField.type = confirmPasswordField.type === 'password' ? 'text' : 'password';
+    icon2.classList.toggle('bi-eye-fill');
+    icon2.classList.toggle('bi-eye-slash-fill');
 });
