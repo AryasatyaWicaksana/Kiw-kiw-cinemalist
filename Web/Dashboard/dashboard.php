@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST["
             $movie_id = $_POST["id"];
             
             // Query untuk menyimpan data
-            $query = "INSERT INTO Movie (user_id, movie_id, title, poster_path, rating, genre, overview, created_at) 
+            $query = "INSERT INTO movie_list (user_id, movie_id, title, poster_path, rating, genre, overview, created_at) 
                       VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())";
             $result = pg_query_params($dbconn, $query, [$user_id, $movie_id, $title, $poster_path, $rating, $genre, $overview]);
 

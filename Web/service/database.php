@@ -1,9 +1,5 @@
 <?php 
-    require_once '../../vendor/autoload.php';
-    use Dotenv\Dotenv;
-
-    $dotenv = Dotenv::createImmutable(__DIR__ . '/../..');
-    $dotenv->load();
+    require_once 'env_reader.php';
 
     $host =  $_ENV['DB_HOST'];
     $port =  $_ENV['DB_PORT'];
