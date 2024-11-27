@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                     $_SESSION['username'] = $user['username'];
                     $_SESSION["is_login"] = true;
 
+                    pg_close($dbconn);
                     header('Location: ../Dashboard/dashboard.php');
                     exit();
                 } else {
@@ -41,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         } catch (Exception $e) {
             error_log("Error during login: " . $e->getMessage());
             $login_message = "Terjadi kesalahan saat login. Silakan coba lagi.";
+        } finally {
+            pg_close($dbconn);
         }
     }
 }
@@ -74,6 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                         <button type="button" class="btn btn-link text-white position-absolute border-0" id="togglePassword1">
                             <i class="bi bi-eye-fill" id="toggleIcon1"></i>
                         </button>
+                    </div>
+                    <div class="forgot-password mb-3">
+                        <p class="text-light"><a href="forgot_password.php" class="text-danger">Forgot Password?</a></p>
                     </div>
                     <p class="text-danger mt-5 mb-1"><?= $login_message ?></p>
                     <button type="submit" name="login" class="btn btn-outline-danger w-100 position-relative mb-1">

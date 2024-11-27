@@ -2,7 +2,7 @@
 require_once 'verify_mail.php';
 require_once '../service/database.php';
 
-$register_message = "";
+$fpass_message = "";
 
 // Redirect jika sudah login
 if (isset($_SESSION["is_login"])) {
@@ -15,21 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
     $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
 
     if (empty($email)) {
-        $register_message = "Email wajib diisi.";
+        $fpass_message = "Email wajib diisi!";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $register_message = "Format email tidak valid.";
+        $fpass_message = "Email tidak valid.";
     } else {
         try {
-            $check_email_query = "SELECT * FROM users WHERE email = $1";
-            $check_email_result = pg_query_params($dbconn, $check_email_query, [$email]);
+            $sql = "SELECT * FROM users WHERE email = $1";
+            $result = pg_query_params($dbconn, $sql, [$email]);
 
-            if (!$check_email_result) {
-                throw new Exception("Gagal memeriksa email. Silakan coba lagi.");
-            }
-
-            if (pg_num_rows($check_email_result) > 0) {
-                $register_message = "Email sudah terdaftar. Silakan gunakan email lain.";
-            } else {
+            if ($result && pg_num_rows($result) > 0) {
                 $verification_code = str_pad(random_int(100000, 999999), 6, '0', STR_PAD_LEFT);
 
                 $_SESSION['email'] = $email;
@@ -41,46 +35,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
                 } else {
                     $_SESSION['current_step'] = 2;
                 }
+            } else {
+                $fpass_message = "Email tidak ditemukan.";
             }
         } catch (Exception $e) {
-            error_log("Error in registration step 1: " . $e->getMessage());
-            $register_message = $e->getMessage();
+            error_log("Error during email verification: " . $e->getMessage());
+            $fpass_message = "Terjadi kesalahan. Silakan coba lagi.";
         } finally {
             pg_close($dbconn);
         }
     }
 }
 
-// Langkah 3: Registrasi Pengguna
-if (isset($_POST['register']) && $_SESSION['current_step'] === 3) {
-    $username = htmlspecialchars(trim($_POST['username']));
+// Langkah 3: Reset Password
+if (isset($_POST['fpass']) && $_SESSION['current_step'] === 3) {
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm-password'];
 
-    if (empty($username) || empty($password) || empty($confirm_password)) {
-        $register_message = "Semua field wajib diisi!";
+    if (empty($password) || empty($confirm_password)) {
+        $fpass_message = "Semua field wajib diisi!";
     } elseif ($password !== $confirm_password) {
-        $register_message = "Password dan konfirmasi password tidak cocok!";
+        $fpass_message = "Password dan konfirmasi password tidak cocok!";
     } elseif (strlen($password) < 8) {
-        $register_message = "Password harus memiliki minimal 8 karakter!";
+        $fpass_message = "Password harus memiliki minimal 8 karakter!";
     } else {
         try {
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $email = $_SESSION['email'];
-            $sql = "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)";
-            $result = pg_query_params($dbconn, $sql, [$username, $email, $hashed_password]);
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            $sql = "UPDATE users SET password = $1 WHERE email = $2";
+            $result = pg_query_params($dbconn, $sql, [$hashed_password, $email]);
 
             if ($result) {
-                pg_close($dbconn);
                 session_destroy();
+                pg_close($dbconn);
                 header('Location: login.php');
                 exit();
             } else {
-                throw new Exception("Gagal menyimpan data pengguna.");
+                $fpass_message = "Terjadi kesalahan saat memperbarui password.";
             }
         } catch (Exception $e) {
-            $register_message = "Terjadi kesalahan saat memproses pendaftaran.";
-            error_log("Error during registration: " . $e->getMessage());
+            error_log("Error during password reset: " . $e->getMessage());
+            $fpass_message = "Terjadi kesalahan. Silakan coba lagi.";
         } finally {
             pg_close($dbconn);
         }
@@ -98,14 +94,13 @@ if (isset($_POST['register']) && $_SESSION['current_step'] === 3) {
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="../Assets/img/Logo kiw-kiw.png">
-    <title>Register Page</title>
+    <title>Forgot Password</title>
 </head>
 <body class="text-white" style="background-color: #302e2e;">
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card bg-dark p-4" style="width: 22rem; border-radius: 10px; box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);">
             <div class="card-body">
-                <h2 class="text-center mb-4 text-white">Register</h2>
-
+                <h2 class="text-center mb-4 text-white">Forgot Password</h2>
                 <?php if ($_SESSION['current_step'] === 1): ?>
                 <!-- Step 1: Email Form -->
                 <form method="POST" action="">
@@ -113,10 +108,10 @@ if (isset($_POST['register']) && $_SESSION['current_step'] === 3) {
                         <input type="email" class="form-control bg-dark text-white border-0 border-bottom" id="email" name="email" autocomplete="off" required>
                         <label for="email" class="form-label text-light">Email</label>
                     </div>
-                    <p class="text-danger"><?= $register_message ?></p>
+                    <p class="text-danger"><?= $fpass_message ?></p>
                     <button type="submit" name="submit_email" class="btn btn-outline-danger w-100">Submit</button>
                     <div class="text-center mt-3">
-                        <p class="text-light">Already have an account? <a href="login.php" class="text-danger">Login</a></p>
+                        <p class="text-light">Don't have an account? <a href="register.php" class="text-danger">Register</a></p>
                     </div>
                 </form>
 
@@ -130,17 +125,13 @@ if (isset($_POST['register']) && $_SESSION['current_step'] === 3) {
                         <input type="number" class="form-control bg-dark text-white border-0 border-bottom" id="code" name="code" autocomplete="off" required>
                         <label for="code" class="form-label text-light">Verification Code</label>
                     </div>
-                    <p class="text-danger"><?= $register_message ?></p>
+                    <p class="text-danger"><?= $fpass_message ?></p>
                     <button type="submit" name="submit_code" class="btn btn-outline-danger w-100">Submit</button>
                 </form>
 
                 <?php elseif ($_SESSION['current_step'] === 3): ?>
                 <!-- Step 3: Username and Password Form -->
                 <form method="POST" action="">
-                    <div class="mb-3">
-                        <input type="text" class="form-control bg-dark text-white border-0 border-bottom" id="username" name="username" autocomplete="off" required>
-                        <label for="username" class="form-label text-light">Username</label>
-                    </div>
                     <div class="mb-3">
                         <input type="password" class="form-control bg-dark text-white border-0 border-bottom" id="password" name="password" autocomplete="off" required>
                         <label for="password" class="form-label text-light">Password</label>
@@ -155,8 +146,8 @@ if (isset($_POST['register']) && $_SESSION['current_step'] === 3) {
                             <i class="bi bi-eye-fill" id="toggleIcon2"></i>
                         </button>
                     </div>
-                    <p class="text-danger"><?= $register_message ?></p>
-                    <button type="submit" name="register" class="btn btn-outline-danger w-100">Register</button>
+                    <p class="text-danger"><?= $fpass_message ?></p>
+                    <button type="submit" name="fpass" class="btn btn-outline-danger w-100">Submit</button>
                 </form>
                 <?php endif; ?>
             </div>
