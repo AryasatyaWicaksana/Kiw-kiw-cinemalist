@@ -1,10 +1,45 @@
 <?php
-    session_start();
+require_once '../service/database.php';
+session_start();
 
-    if(isset($_SESSION["is_login"]) == false) {
-        header("location: ../../index.php");
-        exit();
+if(isset($_SESSION["is_login"]) == false) {
+    header("location: ../../index.php");
+    exit();
+}
+
+// Periksa jika ada data POST untuk menyimpan film
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST["action"] === "save_movie") {
+    header('Content-Type: application/json'); // Pastikan respons JSON
+    try {
+        if (isset($_POST["title"], $_POST["poster_path"], $_POST["rating"], $_POST["genre"], $_POST["overview"], $_POST["id"])) {
+            // Ambil data dari POST
+            $user_id = $_SESSION["user_id"];
+            $title = $_POST["title"];
+            $poster_path = $_POST["poster_path"];
+            $rating = $_POST["rating"];
+            $genre = $_POST["genre"];
+            $overview = $_POST["overview"];
+            $movie_id = $_POST["id"];
+            
+            // Query untuk menyimpan data
+            $query = "INSERT INTO Movie (user_id, movie_id, title, poster_path, rating, genre, overview, created_at) 
+                      VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())";
+            $result = pg_query_params($dbconn, $query, [$user_id, $movie_id, $title, $poster_path, $rating, $genre, $overview]);
+
+            // Kirim respons JSON
+            if ($result) {
+                echo json_encode(["success" => true, "message" => "Movie saved successfully"]);
+            } else {
+                echo json_encode(["success" => false, "message" => pg_last_error($dbconn)]);
+            }
+        } else {
+            echo json_encode(["success" => false, "message" => "Invalid input"]);
+        }
+    } catch (Exception $e) {
+        echo json_encode(["success" => false, "message" => $e->getMessage()]);
     }
+    exit(); // Penting untuk menghentikan eksekusi
+}
 ?>
 
 <!DOCTYPE html>

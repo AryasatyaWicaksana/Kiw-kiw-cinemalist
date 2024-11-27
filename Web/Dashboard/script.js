@@ -251,12 +251,17 @@ function showMovies(data) {
       let isLiked = false;
       let isAddedToList = false;
 
-      document.getElementById(`add-${id}`).addEventListener('click', () => {
-          isAddedToList = !isAddedToList;
-          const checkIcon = document.getElementById(`check-${id}`);
-          checkIcon.textContent = isAddedToList ? '✔️' : '+';
-          console.log(isAddedToList ? `Added movie ID: ${id} to list` : `Removed movie ID: ${id} from list`);
-      });
+     document.getElementById(`add-${id}`).addEventListener('click', () => {
+        if (!isAddedToList) { // Pastikan hanya menambahkan saat belum ditambahkan
+            isAddedToList = true;
+            const checkIcon = document.getElementById(`check-${id}`);
+            checkIcon.textContent = '✔️';
+            console.log(`Added movie ID: ${id} to list`);
+            saveMovie(movie); // Panggil fungsi saveMovie
+        } else {
+            alert('This movie is already on your list!');
+        }
+     });
 
       document.getElementById(`like-${id}`).addEventListener('click', () => {
           isLiked = !isLiked;
@@ -423,4 +428,40 @@ function pageCall(page){
     let url = urlSplit[0] +'?'+ b
     getMovies(url);
   }
+}
+
+function saveMovie(movie) {
+    const payload = {
+        action: "save_movie",
+        id: movie.id,
+        title: movie.title,
+        poster_path: movie.poster_path ? movie.poster_path : null,
+        rating: movie.vote_average,
+        genre: movie.genre_ids.map(id => genres.find(g => g.id === id)?.name).join(", "),
+        overview: movie.overview
+    };
+    
+    fetch('../Dashboard/dashboard.php', { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(payload)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            console.log("Movie saved:", payload.title);
+        } else {
+            console.error("Server error:", data.message);
+        }
+    })
+    .catch(error => {
+        console.error("Fetch error:", error);
+    });
 }
