@@ -9,6 +9,10 @@ if (isset($_SESSION["is_login"])) {
     exit();
 }
 
+if (isset($_SESSION['current_step']) || isset($_SESSION['current_fstep'])) {
+    session_destroy();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
     $password = trim($_POST['password']);

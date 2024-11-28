@@ -24,7 +24,7 @@
     <header class="navbar navbar-expand-lg bg-dark py-2 sticky-top" style="box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5)">
         <div class="container-fluid">
             <div class="d-flex align-items-center">
-                <img class="me-2" src="Web/Assets/img/Logo kiw-kiw.png" alt="Kiw Kiw Logo" style="height: 50px; margin-left: 20px;">
+                <img class="me-2" src="Web/Assets/img/Logo kiw-kiw.png" alt="Kiw Kiw Logo">
                 <h1 class="navbar-brand text-white h4 mb-0">Kiw Kiw Cinema List</h1>
             </div>
             <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@
                         <a class="nav-element nav-link text-white" href="#about">About Us</a>
                     </li>
                     <li class="nav-item p-1">
-                        <a class="login nav-link mx-3 text-center" href="../Kiw-kiw-cinemalist/Web/Register-Login-Page/login.php">Login</a>
+                        <a class="login nav-link mx-3 text-center" href="Web/Register-Login-Page/login.php">Login</a>
                     </li>
                 </ul>
             </nav>
@@ -49,23 +49,28 @@
     <main class="py-5 mt-1 mb-2">
     <section class="mb-5">
         <div id="carouselExampleSlidesOnly" class="carousel slide container bg-dark rounded-4" data-bs-ride="carousel" 
-            style="box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5); max-height: 100vh;">
+            style="box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);">
             <div class="carousel-inner">
-                <div class="carousel-item active" style="height: 85vh;">
-                    <img src="Web/Assets/img/venom-let-there-be-carnage-4k-wallpaper-3840x2160-uhdpaper.com-203.1_a.jpg" class="object-fit-cover rounded-4 d-block w-100 h-100 img-fluid" alt="Slide 1">
+                <div class="carousel-item active" style="max-height: 85vh;">
+                    <img src="Web/Assets/img/venom-let-there-be-carnage-4k-wallpaper-3840x2160-uhdpaper.com-203.1_a.jpg" class="object-fit-cover rounded-4 d-block img-fluid" alt="Slide 1">
                 </div>
-                <div class="carousel-item" style="height: 85vh;">
-                    <img src="Web/Assets/img/terrifier-3-art-the-clown-4k-wallpaper-uhdpaper.com-399@2@b.jpg" class="object-fit-cover rounded-4 d-block w-100 h-100 img-fluid" alt="Slide 2">
+                <div class="carousel-item" style="max-height: 85vh;">
+                    <img src="Web/Assets/img/terrifier-3-art-the-clown-4k-wallpaper-uhdpaper.com-399@2@b.jpg" class="object-fit-cover rounded-4 d-block img-fluid" alt="Slide 2">
                 </div>
-                <div class="carousel-item" style="height: 85vh;">
-                    <img src="Web/Assets/img/gladiator-2-lucius-paul-mescal-4k-wallpaper-uhdpaper.com-347@3@b.jpg" class="object-fit-cover rounded-4 d-block w-100 h-100 img-fluid" alt="Slide 3">
+                <div class="carousel-item" style="max-height: 85vh;">
+                    <img src="Web/Assets/img/gladiator-2-lucius-paul-mescal-4k-wallpaper-uhdpaper.com-347@3@b.jpg" class="object-fit-cover rounded-4 d-block img-fluid" alt="Slide 3">
                 </div>
             </div>
         </div>
     </section>
-        
+
+    <section id="movieList" class="container text-bg-dark rounded-4 mb-5">
+        <h3 class="ms-4 mt-5">Trending Movies</h3>
+        <div id="newList" class="container"></div>
+    </section>
+
     <section id="about" class="about-us container text-bg-dark p-5 rounded-4" style="box-shadow: 10px 20px 25px rgba(0, 0, 0, 0.7);">
-        <h2 class="text-center mb-4">Kiw Kiw Cinema List</h2>
+        <h2 class="text-center mb-4">About Us</h2>
         <p>
             Kiw Kiw Cinema List is an interactive movie database platform designed for film enthusiasts to explore,
             curate, and manage their own movie lists. Users can easily create personalized watchlists, adding movies
@@ -83,26 +88,30 @@
     </section>
     </main>
 
-    <footer class="d-flex flex-column text-bg-dark" style="box-shadow: 0 -15px 25px rgba(0, 0, 0, 0.5); padding: 1rem;">
-        <div class="d-flex justify-content-center align-items-start">
-            <div class="text-center pe-5 "> 
-                <strong>Location</strong><br>
-                <span style="margin-top: 0.2rem;">No.9 Alumni St., Medan City, <br> North Sumatera, Indonesia</span>
-            </div>
-            <div class="text-center pe-5">
-                <p class="mb-1"><strong>Follow Us On</strong></p>
-                <div class="d-flex justify-content-center">
-                    <a class="icon bi bi-github text-white me-3" href="https://github.com/Aryasatyawicaksana"></a>
-                    <a class="icon bi bi-instagram text-white" href="https://www.instagram.com/"></a>
+    <footer class="bg-dark text-white pt-2 pb-1 mt-5 shadow">
+        <div class="container-fluid text-center">
+            <div class="row mt-2">
+                <div class="col-md-4">
+                    <h3>Location</h3>
+                    <p class="location">Medan City, North Sumatera, Indonesia</p>
+                </div>
+                <div class="col-md-4 mb-1">
+                    <h3>Follow Us</h3>
+                    <a href="https://github.com/Aryasatyawicaksana" class="text-white me-3"><i class="icon bi bi-github"></i></a>
+                    <a href="https://www.instagram.com/" class="text-white"><i class="icon bi bi-instagram"></i></a>
+                </div>
+                <div class="col-md-4">
+                    <h3>Contact</h3>
+                    <p class="contact-us">kiwkiwcinemalist@gmail.com</p>
                 </div>
             </div>
+            <hr class="my-3">
+            <p>&copy; 2024 Kiw Kiw Cinema List. All Rights Reserved.</p>
         </div>
-        <hr style="width: 100%; border: 1px solid #fff; margin: 1rem auto;"/>
-        <p class="fs-8 text-center mb-0">
-            <i>@Copyright, All Right Reserved</i>
-        </p>
     </footer>
 
+    <script src="Web/service/api.js"></script>
+    <script src="script.js"></script>
     <script src="Bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
