@@ -109,6 +109,10 @@ const tagsEl = document.getElementById('tags');
 const prev = document.getElementById('prev')
 const next = document.getElementById('next')
 const current = document.getElementById('current')
+const yearForm = document.getElementById('year-form');
+const yearInput = document.getElementById('year-input');
+const ratingForm = document.getElementById('rating-form');
+const ratingSelect = document.getElementById('rating-select');
 
 var currentPage = 1;
 var nextPage = 2;
@@ -182,6 +186,32 @@ function clearBtn(){
 
 getMovies(API_URL);
 
+ratingForm.addEventListener('change', (e) => {
+  e.preventDefault();
+
+  const selectedRating = ratingSelect.value;
+  if (selectedRating !== '') {
+      // Hitung rentang rating
+      const minRating = parseFloat(selectedRating);
+      const maxRating = minRating + 0.999;
+
+      // URL dengan filter rating
+      const ratingURL = `${API_URL}&vote_average.gte=${minRating}&vote_average.lte=${maxRating}`;
+      getMovies(ratingURL);
+  }
+});
+
+yearForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const year = yearInput.value;
+  if (year) {
+      const yearURL = `${API_URL}&primary_release_year=${year}`;
+      getMovies(yearURL);
+      yearInput.value = ''; // Reset input setelah submit
+  }
+});
+
 function getMovies(url) {
   lastUrl = url;
     fetch(url).then(res => res.json()).then(data => {
@@ -224,7 +254,8 @@ function showMovies(data) {
   main.innerHTML = '';
 
   data.forEach(movie => {
-      const {title, poster_path, vote_average, overview, id} = movie;
+      const {title, poster_path, vote_average, overview, id, release_date} = movie;
+      const year = release_date ? release_date.split('-')[0] : 'Unknown';
       const movieEl = document.createElement('div');
       movieEl.classList.add('movie');
 
@@ -317,7 +348,7 @@ function openNav(movie) {
           if(site == 'YouTube'){
               
             embed.push(`
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/${key}" title="${name}" class="embed hide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe width="800" height="350" style="margin-bottom:3rem;" src="https://www.youtube.com/embed/${key}" title="${name}" class="embed hide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           
           `)
 
