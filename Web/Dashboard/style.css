@@ -29,7 +29,7 @@ header{
 
 .logo-img {
     height: 40px;
-    margin-left: 30px; /* Adjust as needed */
+    margin-left: 30px; 
     margin-right: 10px;
 }
 
@@ -166,6 +166,7 @@ main{
 }
 
 .movie {
+    position: relative;
     width: 300px;
     margin: 1rem;
     border-radius: 3px;
@@ -177,6 +178,40 @@ main{
 
 .movie img{
     width:100%;
+}
+
+.button-container {
+    position: absolute; 
+    top: 10px;
+    right: 10px; 
+    display: flex; 
+    align-items: center; 
+}
+
+.add-to-list-btn, .like-btn {
+    background-color: black; 
+    border: none;
+    border-radius: 50%; 
+    width: 30px; 
+    height: 30px; 
+    color: white;
+    font-size: 20px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+    margin-left: 5px; 
+    display: flex; 
+    align-items: center;
+    justify-content: center; 
+}
+
+.add-to-list-btn:hover, .like-btn:hover {
+    background-color: white; 
+    color: black; 
+}
+
+.heart-icon, .check-icon {
+    font-size: 20px;
+    transition: color 0.3s ease;
 }
 
 .movie-info{
@@ -218,7 +253,7 @@ main{
     bottom:0;
     background-color: #fff;
     padding: 1rem;
-    max-height: 100%;
+    max-height: 75%;
     transform:translateY(101%);
     transition:transform 0.3s ease-in;
     overflow: auto;

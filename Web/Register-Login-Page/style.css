@@ -44,7 +44,8 @@
     box-shadow: none;
 }
 
-#togglePassword {
+#togglePassword1,
+#togglePassword2 {
     right: -8px;
     top: 50%;
     transform: translateY(-50%);
@@ -59,7 +60,6 @@
     overflow: hidden;
     position: relative;
     display: inline-block;
-    margin-top: 20px;
     text-transform: uppercase;
     letter-spacing: 4px;
     transition: .5s;

@@ -1,3 +1,12 @@
+<?php
+    session_start();
+
+    if(isset($_SESSION["is_login"]) == false) {
+        header("location: ../../index.php");
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +19,7 @@
 </head>
 <body> 
     <header>
-         <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center">
             <img class="me-2" src="../Assets/img/Logo kiw-kiw.png" alt="Kiw Kiw Logo" class="logo-img">
             <h1 class="title">Kiw Kiw Cinema List</h1>
         </div>
@@ -18,7 +27,7 @@
             <form id="form">
                 <input type="text" id="search" class="search" placeholder="Search...">
             </form>
-            <a href="../Profile Page/profile.html" class="profile-btn">
+            <a href="../Profile Page/profile.php" class="profile-btn">
                 <img src="../Assets/img/blank-profile-picture.png" alt="Profile Picture" id="profile-picture">
             </a>
         </div>
@@ -34,9 +43,9 @@
 
     <main id="main"></main>
     <div class="pagination">
-        <div class="page" id="prev">Previous Page</div>
-        <div class="current" id="current">1</div>
-        <div class="page" id="next">Next Page</div>
+        <div class="page" id="prev"></div>
+        <div class="current" id="current"></div>
+        <div class="page" id="next"></div>
     </div>
     <script src="script.js"></script>
 </body>

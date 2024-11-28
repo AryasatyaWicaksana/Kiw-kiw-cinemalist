@@ -1,3 +1,12 @@
+<?php
+    session_start();
+
+    if (isset($_SESSION["is_login"])) {
+        header('location: Web/Dashboard/dashboard.php');
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en" style="scroll-padding-top: 50px; height: 50px;">
 <head>
@@ -8,7 +17,7 @@
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="Web/Assets/img/Logo kiw-kiw.png"
+    <link rel="icon" href="Web/Assets/img/Logo kiw-kiw.png">
 </head>
 
 <body data-bs-smooth-scroll="true">
@@ -30,7 +39,7 @@
                         <a class="nav-element nav-link text-white" href="#about">About Us</a>
                     </li>
                     <li class="nav-item p-1">
-                        <a class="login nav-link mx-3 text-center" href="Web/Register-Login Page/login.html">Login</a>
+                        <a class="login nav-link mx-3 text-center" href="../Kiw-kiw-cinemalist/Web/Register-Login-Page/login.php">Login</a>
                     </li>
                 </ul>
             </nav>
@@ -42,14 +51,14 @@
         <div id="carouselExampleSlidesOnly" class="carousel slide container bg-dark rounded-4" data-bs-ride="carousel" 
             style="box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5); max-height: 100vh;">
             <div class="carousel-inner">
-                <div class="carousel-item active text-center" style="height: 85vh;">
-                    <img src="Web/Assets/img/blank-profile-picture.png" class="object-fit-cover rounded-4 d-block w-100 h-100 img-fluid" alt="Slide 1">
+                <div class="carousel-item active" style="height: 85vh;">
+                    <img src="Web/Assets/img/venom-let-there-be-carnage-4k-wallpaper-3840x2160-uhdpaper.com-203.1_a.jpg" class="object-fit-cover rounded-4 d-block w-100 h-100 img-fluid" alt="Slide 1">
                 </div>
-                <div class="carousel-item text-center" style="height: 85vh;">
-                    <img src="Web/Assets/img/blank-profile-picture.png" class="object-fit-cover rounded-4 d-block w-100 h-100 img-fluid" alt="Slide 2">
+                <div class="carousel-item" style="height: 85vh;">
+                    <img src="Web/Assets/img/terrifier-3-art-the-clown-4k-wallpaper-uhdpaper.com-399@2@b.jpg" class="object-fit-cover rounded-4 d-block w-100 h-100 img-fluid" alt="Slide 2">
                 </div>
-                <div class="carousel-item text-center" style="height: 85vh;">
-                    <img src="Web/Assets/img/blank-profile-picture.png" class="object-fit-cover rounded-4 d-block w-100 h-100 img-fluid" alt="Slide 3">
+                <div class="carousel-item" style="height: 85vh;">
+                    <img src="Web/Assets/img/gladiator-2-lucius-paul-mescal-4k-wallpaper-uhdpaper.com-347@3@b.jpg" class="object-fit-cover rounded-4 d-block w-100 h-100 img-fluid" alt="Slide 3">
                 </div>
             </div>
         </div>
@@ -74,16 +83,23 @@
     </section>
     </main>
 
-    <footer class="d-flex justify-content-between align-items-center text-bg-dark" style="box-shadow: 0 -15px 25px rgba(0, 0, 0, 0.5);">
-        <p class="fs-5 pt-3 pe-5 mx-5">
-            Copyright <br>
-            Kiw Kiw Cinema List <br>
-            No.9 Alumni St., Medan City, Noth Sumatera, Indonesia
-        </p>
-        <p class="fs-5 pt-3 pe-5 me-5">
-            Follow Us On <br>
-            <a class="icon bi bi-github text-white" href="https://github.com/Aryasatyawicaksana"> Github</a> <br>
-            <a class="icon bi bi-instagram text-white" href="https://www.instagram.com/"> Instagram</a>
+    <footer class="d-flex flex-column text-bg-dark" style="box-shadow: 0 -15px 25px rgba(0, 0, 0, 0.5); padding: 1rem;">
+        <div class="d-flex justify-content-center align-items-start">
+            <div class="text-center pe-5 "> 
+                <strong>Location</strong><br>
+                <span style="margin-top: 0.2rem;">No.9 Alumni St., Medan City, <br> North Sumatera, Indonesia</span>
+            </div>
+            <div class="text-center pe-5">
+                <p class="mb-1"><strong>Follow Us On</strong></p>
+                <div class="d-flex justify-content-center">
+                    <a class="icon bi bi-github text-white me-3" href="https://github.com/Aryasatyawicaksana"></a>
+                    <a class="icon bi bi-instagram text-white" href="https://www.instagram.com/"></a>
+                </div>
+            </div>
+        </div>
+        <hr style="width: 100%; border: 1px solid #fff; margin: 1rem auto;"/>
+        <p class="fs-8 text-center mb-0">
+            <i>@Copyright, All Right Reserved</i>
         </p>
     </footer>
 

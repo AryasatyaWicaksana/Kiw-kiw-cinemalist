@@ -1,3 +1,48 @@
+<?php
+session_start();
+require_once '../service/database.php';
+
+$login_message = "";
+
+if (isset($_SESSION["is_login"])) {
+    header("location: ../Dashboard/dashboard.php");
+    exit();
+}
+
+if (isset($_POST['login'])) {
+    $username = trim($_POST['username']);
+    $password = $_POST['password'];
+
+    if (empty($username) || empty($password)) {
+        $login_message = "Username dan password wajib diisi!";
+    } else {
+        try {
+            $sql = "SELECT * FROM users WHERE username = $1";
+            $result = pg_query_params($dbconn, $sql, array($username));
+
+            if ($result && pg_num_rows($result) > 0) {
+                $user = pg_fetch_assoc($result);
+
+                if (password_verify($password, $user['password'])) {
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['username'] = $user['username'];
+                    $_SESSION["is_login"] = true;
+
+                    header('Location: ../Dashboard/dashboard.php');
+                    exit();
+                } else {
+                    $login_message = "Username atau password salah.";
+                }
+            } else {
+                $login_message = "Akun dengan username tersebut tidak ditemukan.";
+            }
+        } catch (Exception $e) {
+            $login_message = "Terjadi kesalahan saat login. Silakan coba lagi.";
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,18 +60,19 @@
         <div class="card bg-dark p-4" style="width: 22rem; border-radius: 10px; box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);">
             <div class="card-body">
                 <h2 class="text-center mb-4 text-white">Login</h2>
-                <form action="../Dashboard/dashboard.html">
+                <form action="login.php" method="POST">
                     <div class="mb-3">
                         <input type="text" class="form-control bg-dark text-white border-0 border-bottom" id="username" name="username" autocomplete="off" required>
                         <label for="username" class="form-label text-light">Username</label>
                     </div>
                     <div class="mb-3">
-                        <input type="password" class="form-control bg-dark text-white border-0 border-bottom" id="password" name="password" required>
+                        <input type="password" class="form-control bg-dark text-white border-0 border-bottom" id="password" name="password" autocomplete="off" required>
                         <label for="password" class="form-label text-light">Password</label>
                         <button type="button" class="btn btn-link text-white position-absolute border-0" id="togglePassword">
                             <i class="bi bi-eye-fill" id="toggleIcon"></i>
                         </button>
                     </div>
+                    <p class="text-danger mt-5 mb-1"><?= $login_message ?></p>
                     <button type="submit" name="login" class="btn btn-outline-danger w-100 position-relative mb-1">
                         <span class="animation-layer"></span>
                         <span class="animation-layer"></span>
@@ -35,7 +81,7 @@
                         Login
                     </button>
                     <div class="text-center mt-3">
-                        <p class="text-light">Don't have an account? <a href="register.html" class="text-danger">Register</a></p>
+                        <p class="text-light">Don't have an account? <a href="register.php" class="text-danger">Register</a></p>
                     </div>
                 </form>
             </div>
