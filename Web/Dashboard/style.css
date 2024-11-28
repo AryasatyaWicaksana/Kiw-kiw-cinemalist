@@ -27,6 +27,19 @@ header{
     z-index: 1;
 }
 
+#year-input {
+    -moz-appearance: textfield; /* Untuk Firefox */
+    width: 7.5rem;
+    text-align: center;
+}
+
+#year-input::-webkit-inner-spin-button,
+#year-input::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Untuk Chrome, Safari, dan Edge */
+    margin: 0;
+}
+
+
 .logo-img {
     height: 40px;
     margin-left: 30px; 
@@ -263,15 +276,23 @@ main{
     transform:translateY(0);
 }
 
-.know-more{
+.know-more {
     background-color: var(--highlight-color);
     color: var(--text-color);
     font-size: 16px;
     font-weight: bold;
-    border:0;
+    border: 0;
     border-radius: 50px;
     padding: 10px 20px;
     margin-top: 5px;
+    transition: background-color 0.3s ease; 
+}
+
+.know-more:hover {
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    box-shadow: none; 
 }
 
 .overlay {
@@ -348,22 +369,33 @@ main{
     right:5%;
 }
 
-.dots{
-    margin-top: 30px;
-}
-
 .dots .dot {
     padding: 5px 15px;
-    border-radius: 50%;
-    border: 5px solid var(--secondary-color);
     color: var(--text-color);
     font-size: 20px;
     font-weight: 600;
     margin: 5px;
+    position: relative;
+    cursor: pointer; 
 }
 
-.dots .dot.active{
-    border-color: var(--highlight-color);
+.dots .dot::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px; 
+    background-color: red; 
+    position: absolute;
+    bottom: -8px; 
+    left: 0;
+    right: 0;
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
+}
+
+.dots .dot:hover::after,
+.dots .dot.active::after {
+    opacity: 1;
 }
 
 @media (max-width: 768px) {
