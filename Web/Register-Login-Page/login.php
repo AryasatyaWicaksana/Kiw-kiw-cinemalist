@@ -9,16 +9,18 @@ if (isset($_SESSION["is_login"])) {
     exit();
 }
 
-if (isset($_POST['login'])) {
-    $username = trim($_POST['username']);
-    $password = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+    $password = trim($_POST['password']);
 
-    if (empty($username) || empty($password)) {
-        $login_message = "Username dan password wajib diisi!";
+    if (empty($email) || empty($password)) {
+        $login_message = "Email dan password wajib diisi!";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $login_message = "Email tidak valid.";
     } else {
         try {
-            $sql = "SELECT * FROM users WHERE username = $1";
-            $result = pg_query_params($dbconn, $sql, array($username));
+            $sql = "SELECT * FROM users WHERE email = $1";
+            $result = pg_query_params($dbconn, $sql, array($email));
 
             if ($result && pg_num_rows($result) > 0) {
                 $user = pg_fetch_assoc($result);
@@ -28,16 +30,20 @@ if (isset($_POST['login'])) {
                     $_SESSION['username'] = $user['username'];
                     $_SESSION["is_login"] = true;
 
+                    pg_close($dbconn);
                     header('Location: ../Dashboard/dashboard.php');
                     exit();
                 } else {
-                    $login_message = "Username atau password salah.";
+                    $login_message = "Email atau password salah.";
                 }
             } else {
-                $login_message = "Akun dengan username tersebut tidak ditemukan.";
+                $login_message = "Akun dengan email tersebut tidak ditemukan.";
             }
         } catch (Exception $e) {
+            error_log("Error during login: " . $e->getMessage());
             $login_message = "Terjadi kesalahan saat login. Silakan coba lagi.";
+        } finally {
+            pg_close($dbconn);
         }
     }
 }
@@ -62,15 +68,18 @@ if (isset($_POST['login'])) {
                 <h2 class="text-center mb-4 text-white">Login</h2>
                 <form action="login.php" method="POST">
                     <div class="mb-3">
-                        <input type="text" class="form-control bg-dark text-white border-0 border-bottom" id="username" name="username" autocomplete="off" required>
-                        <label for="username" class="form-label text-light">Username</label>
+                        <input type="email" class="form-control bg-dark text-white border-0 border-bottom" id="email" name="email" autocomplete="off" required>
+                        <label for="email" class="form-label text-light">Email</label>
                     </div>
                     <div class="mb-3">
                         <input type="password" class="form-control bg-dark text-white border-0 border-bottom" id="password" name="password" autocomplete="off" required>
                         <label for="password" class="form-label text-light">Password</label>
-                        <button type="button" class="btn btn-link text-white position-absolute border-0" id="togglePassword">
-                            <i class="bi bi-eye-fill" id="toggleIcon"></i>
+                        <button type="button" class="btn btn-link text-white position-absolute border-0" id="togglePassword1">
+                            <i class="bi bi-eye-fill" id="toggleIcon1"></i>
                         </button>
+                    </div>
+                    <div class="forgot-password mb-3">
+                        <p class="text-light"><a href="forgot_password.php" class="text-danger">Forgot Password?</a></p>
                     </div>
                     <p class="text-danger mt-5 mb-1"><?= $login_message ?></p>
                     <button type="submit" name="login" class="btn btn-outline-danger w-100 position-relative mb-1">
