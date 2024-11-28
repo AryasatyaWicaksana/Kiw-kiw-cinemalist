@@ -101,6 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST["
         <div class="current" id="current"></div>
         <div class="page" id="next"></div>
     </div>
+    <script src="../service/api.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

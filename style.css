@@ -2,6 +2,11 @@
   font-family: 'Poppins';
 }
 
+header .container-fluid .d-flex img {
+  height: 50px;
+  margin-left: 20px;
+}
+
 .login {
   background-color: red;
   color: #fff;
@@ -18,7 +23,7 @@
 }
 
 .nav-link {
-  font-size: 18px;
+  font-size: 1.125rem;
   border-radius: 30rem;
 }
 
@@ -43,22 +48,114 @@ footer .d-flex {
   justify-content: center; 
 }
 
-.text-center {
-  margin: 0 8rem; 
-}
-
-.location {
-  margin-right: 2rem ; 
-}
-
-.follow-us {
-  margin-left: 2rem; 
-}
-
 .icon {
   font-size: 2rem; 
 }
 
 .icon:hover {
   color: #ccc; 
+}
+
+#movieList {
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#movieList::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0)
+  );
+  pointer-events: none;
+}
+
+#newList {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 1rem;
+  gap: 1rem;
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+#newList::-webkit-scrollbar {
+  height: 8px;
+}
+
+#newList::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+
+#newList::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.no-results {
+  color: #fff
+}
+
+.movie {
+  flex: 0 0 auto;
+  position: relative;
+  width: 20rem;
+  margin: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.625rem;
+  overflow: hidden;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.movie img {
+  width:100%;
+}
+
+.movie-info {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.movie-info h3 {
+  margin-top: 0;
+  font-size: medium;
+}
+
+.movie-info span {
+  background-color: #302e2e;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.movie-info span.green {
+  color: lightgreen;
+}
+
+.movie-info span.orange {
+  color: orange;
+}
+
+.movie-info span.red {
+  color: red;
+}
+
+@media (max-width: 990px) {
+  header .container-fluid .d-flex img {
+    margin-left: 0;
+  }
 }

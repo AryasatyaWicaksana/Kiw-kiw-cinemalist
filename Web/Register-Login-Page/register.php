@@ -10,6 +10,11 @@ if (isset($_SESSION["is_login"])) {
     exit();
 }
 
+// Default langkah
+if (!isset($_SESSION['current_step'])) {
+    $_SESSION['current_step'] = 1;
+}
+
 // Langkah 1: Validasi Email dan Kirim Kode Verifikasi
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
     $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
@@ -48,6 +53,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
         } finally {
             pg_close($dbconn);
         }
+    }
+}
+
+// Langkah 2: Validasi Kode Verifikasi
+if (isset($_POST['submit_code']) && $_SESSION['current_step'] === 2) {
+    $code = trim($_POST['code']);
+    if (time() > $_SESSION['verification_expiry']) {
+        $register_message = "Kode verifikasi telah kedaluwarsa.";
+        session_destroy();
+    } elseif ($code === $_SESSION['verification_code']) {
+        unset($_SESSION['verification_code']);
+        $_SESSION['current_step'] = 3;
+    } else {
+        $register_message = "Kode verifikasi salah.";
     }
 }
 

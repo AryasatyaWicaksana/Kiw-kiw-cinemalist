@@ -2,11 +2,6 @@
 session_start();
 require_once '../service/env_reader.php';
 
-// Default langkah
-if (!isset($_SESSION['current_step'])) {
-    $_SESSION['current_step'] = 1;
-}
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -33,7 +28,7 @@ function sendVerificationEmail($email, $verification_code, $email_name, $email_p
         $mail->Subject = 'Verification Code for KiwKiw Cinemalist';
         $mail->Body = "<h3>Hello!</h3><br>
             <p>Your verification code is: <b>{$verification_code}</b><br>
-            Use this code to verify your email for registration.<br><br>
+            Use this code to verify your email on KiwKiw Cinemalist.<br><br>
             If you didn't request this, please ignore this email.<br><br>
             Best regards,<br>KiwKiw Cinemalist</p>";
 
@@ -43,19 +38,5 @@ function sendVerificationEmail($email, $verification_code, $email_name, $email_p
         return false;
     }
     return true;
-}
-
-// Langkah 2: Validasi Kode Verifikasi
-if (isset($_POST['submit_code']) && $_SESSION['current_step'] === 2) {
-    $code = trim($_POST['code']);
-    if (time() > $_SESSION['verification_expiry']) {
-        $register_message = "Kode verifikasi telah kedaluwarsa.";
-        session_destroy();
-    } elseif ($code === $_SESSION['verification_code']) {
-        unset($_SESSION['verification_code']);
-        $_SESSION['current_step'] = 3;
-    } else {
-        $register_message = "Kode verifikasi salah.";
-    }
 }
 ?>

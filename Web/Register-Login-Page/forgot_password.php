@@ -10,6 +10,11 @@ if (isset($_SESSION["is_login"])) {
     exit();
 }
 
+// Default langkah
+if (!isset($_SESSION['current_fstep'])) {
+    $_SESSION['current_fstep'] = 1;
+}
+
 // Langkah 1: Validasi Email dan Kirim Kode Verifikasi
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
     $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
@@ -33,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
                 if (!sendVerificationEmail($email, $verification_code, $email_name, $email_pass)) {
                     throw new Exception("Gagal mengirim email verifikasi. Silakan coba lagi.");
                 } else {
-                    $_SESSION['current_step'] = 2;
+                    $_SESSION['current_fstep'] = 2;
                 }
             } else {
                 $fpass_message = "Email tidak ditemukan.";
@@ -47,8 +52,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
     }
 }
 
+// Langkah 2: Validasi Kode Verifikasi
+if (isset($_POST['submit_code']) && $_SESSION['current_fstep'] === 2) {
+    $code = trim($_POST['code']);
+    if (time() > $_SESSION['verification_expiry']) {
+        $fpass_message = "Kode verifikasi telah kedaluwarsa.";
+        session_destroy();
+    } elseif ($code === $_SESSION['verification_code']) {
+        unset($_SESSION['verification_code']);
+        $_SESSION['current_fstep'] = 3;
+    } else {
+        $fpass_message = "Kode verifikasi salah.";
+    }
+}
+
 // Langkah 3: Reset Password
-if (isset($_POST['fpass']) && $_SESSION['current_step'] === 3) {
+if (isset($_POST['fpass']) && $_SESSION['current_fstep'] === 3) {
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm-password'];
 
@@ -101,7 +120,7 @@ if (isset($_POST['fpass']) && $_SESSION['current_step'] === 3) {
         <div class="card bg-dark p-4" style="width: 22rem; border-radius: 10px; box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);">
             <div class="card-body">
                 <h2 class="text-center mb-4 text-white">Forgot Password</h2>
-                <?php if ($_SESSION['current_step'] === 1): ?>
+                <?php if ($_SESSION['current_fstep'] === 1): ?>
                 <!-- Step 1: Email Form -->
                 <form method="POST" action="">
                     <div class="mb-3">
@@ -115,7 +134,7 @@ if (isset($_POST['fpass']) && $_SESSION['current_step'] === 3) {
                     </div>
                 </form>
 
-                <?php elseif ($_SESSION['current_step'] === 2): ?>
+                <?php elseif ($_SESSION['current_fstep'] === 2): ?>
                 <!-- Step 2: Email Verification Form -->
                 <form method="POST" action="">
                     <div class="mb-3">
@@ -129,7 +148,7 @@ if (isset($_POST['fpass']) && $_SESSION['current_step'] === 3) {
                     <button type="submit" name="submit_code" class="btn btn-outline-danger w-100">Submit</button>
                 </form>
 
-                <?php elseif ($_SESSION['current_step'] === 3): ?>
+                <?php elseif ($_SESSION['current_fstep'] === 3): ?>
                 <!-- Step 3: Username and Password Form -->
                 <form method="POST" action="">
                     <div class="mb-3">
