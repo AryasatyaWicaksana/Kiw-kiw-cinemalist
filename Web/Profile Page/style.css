@@ -41,6 +41,26 @@ label {
     color: #f8f8f8;
 }
 
+.edit-profile {
+    color: red;
+    padding: 10px 20px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    border: none;
+    background-color: transparent;
+    transition: 0.5s;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.edit-profile:hover {
+    background: red;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px red, 0 0 25px red, 0 0 50px red, 0 0 100px red;
+}
+
 .logout-btn {
     color: red;
     padding: 10px 20px;

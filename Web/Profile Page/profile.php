@@ -36,6 +36,10 @@
             <label>Name:</label>
             <span class="user-name"><?= $_SESSION["username"] ?></span>
         </div>
+            <!-- Add Edit Profile Button Here -->
+    <div class="text-center mb-4">
+        <a href="edit_profile.php" class="edit-profile">Edit Profile</a>
+    </div>
         <div class="profile-item">
             <label>My Collections</label>
             <div class="row mt-3">
