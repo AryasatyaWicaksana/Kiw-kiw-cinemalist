@@ -78,14 +78,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <link rel="icon" href="../Assets/img/Logo kiw-kiw.png">
+    <link rel="icon" href="../Assets/img/icon fix kiw kiw.png">
     <title>Kiw Kiw Cinema List</title>
 </head>
 <body> 
     <header>
         <div class="d-flex align-items-center">
-            <img class="me-2" src="../Assets/img/Logo kiw-kiw.png" alt="Kiw Kiw Logo" class="logo-img">
-            <h1 class="title">Kiw Kiw Cinema List</h1>
+            <img class="me-2" src="../Assets/img/logo navbar fix kiw kiw.png" alt="Kiw Kiw Logo" class="logo-img">
         </div>
         <div class="header-right">
             <form id="rating-form">

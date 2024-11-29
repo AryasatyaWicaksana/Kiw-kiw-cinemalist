@@ -248,7 +248,6 @@ function showMovies(data) {
 
   data.forEach(movie => {
       const {title, poster_path, vote_average, overview, id, release_date} = movie;
-      const date = release_date;
       const movieEl = document.createElement('div');
       movieEl.classList.add('movie');
 
@@ -257,7 +256,6 @@ function showMovies(data) {
           <div class="movie-info">
               <h3>${title}</h3>
               <span class="${getColor(vote_average)}">${vote_average}</span>
-              <p><span>${date}</span></p>
           </div>
           <div class="button-container">
               <button class="like-btn" id="like-${id}"><span class="heart-icon" id="heart-${id}">❤️</span></button>

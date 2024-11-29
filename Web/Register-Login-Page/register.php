@@ -116,7 +116,7 @@ if (isset($_POST['register']) && $_SESSION['current_step'] === 3) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="../Assets/img/Logo kiw-kiw.png">
+    <link rel="icon" href="../Assets/img/icon fix kiw kiw.png">
     <title>Register Page</title>
 </head>
 <body class="text-white" style="background-color: #302e2e;">
