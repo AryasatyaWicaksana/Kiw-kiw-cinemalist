@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
         $register_message = "Format email tidak valid.";
     } else {
         try {
-            $check_email_query = "SELECT * FROM users WHERE email = $1";
+            $check_email_query = "SELECT email FROM user_list WHERE email = $1";
             $check_email_result = pg_query_params($dbconn, $check_email_query, [$email]);
 
             if (!$check_email_result) {
@@ -86,7 +86,7 @@ if (isset($_POST['register']) && $_SESSION['current_step'] === 3) {
         try {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $email = $_SESSION['email'];
-            $sql = "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)";
+            $sql = "INSERT INTO user_list (username, email, password) VALUES ($1, $2, $3)";
             $result = pg_query_params($dbconn, $sql, [$username, $email, $hashed_password]);
 
             if ($result) {

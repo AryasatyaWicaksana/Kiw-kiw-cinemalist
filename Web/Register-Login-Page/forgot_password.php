@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
         $fpass_message = "Email tidak valid.";
     } else {
         try {
-            $sql = "SELECT * FROM users WHERE email = $1";
+            $sql = "SELECT * FROM user_list WHERE email = $1";
             $result = pg_query_params($dbconn, $sql, [$email]);
 
             if ($result && pg_num_rows($result) > 0) {
@@ -82,7 +82,7 @@ if (isset($_POST['fpass']) && $_SESSION['current_fstep'] === 3) {
             $email = $_SESSION['email'];
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            $sql = "UPDATE users SET password = $1 WHERE email = $2";
+            $sql = "UPDATE user_list SET password = $1 WHERE email = $2";
             $result = pg_query_params($dbconn, $sql, [$hashed_password, $email]);
 
             if ($result) {

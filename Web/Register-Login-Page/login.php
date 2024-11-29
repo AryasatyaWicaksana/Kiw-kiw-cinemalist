@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         $login_message = "Email tidak valid.";
     } else {
         try {
-            $sql = "SELECT * FROM users WHERE email = $1";
+            $sql = "SELECT * FROM user_list WHERE email = $1";
             $result = pg_query_params($dbconn, $sql, array($email));
 
             if ($result && pg_num_rows($result) > 0) {
