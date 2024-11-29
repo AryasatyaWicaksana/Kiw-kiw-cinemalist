@@ -137,7 +137,6 @@ function setGenre() {
                     selectedGenre.push(genre.id);
                 }
             }
-            console.log(selectedGenre)
             getMovies(API_URL + '&with_genres='+encodeURI(selectedGenre.join(',')))
             highlightSelection()
         })
@@ -249,7 +248,7 @@ function showMovies(data) {
 
   data.forEach(movie => {
       const {title, poster_path, vote_average, overview, id, release_date} = movie;
-      const year = release_date ? release_date.split('-')[0] : 'Unknown';
+      const date = release_date;
       const movieEl = document.createElement('div');
       movieEl.classList.add('movie');
 
@@ -258,10 +257,12 @@ function showMovies(data) {
           <div class="movie-info">
               <h3>${title}</h3>
               <span class="${getColor(vote_average)}">${vote_average}</span>
+              <p><span>${date}</span></p>
           </div>
           <div class="button-container">
               <button class="like-btn" id="like-${id}"><span class="heart-icon" id="heart-${id}">❤️</span></button>
-              <button class="add-to-list-btn" id="add-${id}"><span class="check-icon" id="check-${id}">+</span></button>
+              <button class="complete-btn" id="complete-${id}"><span class="check-icon" id="check-${id}">+</span></button>
+              <button class="ptw-btn" id="ptw-${id}"><span class="bookmark-icon" id="bookmark-${id}">🔖</span></button>
           </div>
           <div class="overview">
               <h3>Overview</h3>
@@ -274,29 +275,43 @@ function showMovies(data) {
       main.appendChild(movieEl);
 
       let isLiked = false;
-      let isAddedToList = false;
+      let isCompleted = false;
+      let isPlanToWatch = false;
 
-     document.getElementById(`add-${id}`).addEventListener('click', () => {
-        if (!isAddedToList) { // Pastikan hanya menambahkan saat belum ditambahkan
-            isAddedToList = true;
-            const checkIcon = document.getElementById(`check-${id}`);
+      document.getElementById(`like-${id}`).addEventListener('click', () => {
+        if (!isLiked) {
+            isLiked = true;
+            const checkIcon = document.getElementById(`heart-${id}`);
             checkIcon.textContent = '✔️';
-            console.log(`Added movie ID: ${id} to list`);
-            saveMovie(movie); // Panggil fungsi saveMovie
+            saveMovieAction(movie, "like_movie"); 
         } else {
             alert('This movie is already on your list!');
         }
-     });
+      });
 
-      document.getElementById(`like-${id}`).addEventListener('click', () => {
-          isLiked = !isLiked;
-          const heartIcon = document.getElementById(`heart-${id}`);
-          heartIcon.style.color = isLiked ? 'red' : 'white';
-          console.log(isLiked ? `Liked movie ID: ${id}` : `Unliked movie ID: ${id}`);
+      document.getElementById(`complete-${id}`).addEventListener('click', () => {
+        if (!isCompleted) {
+            isCompleted = true;
+            const checkIcon = document.getElementById(`check-${id}`);
+            checkIcon.textContent = '✔️';
+            saveMovieAction(movie, "complete_movie"); 
+        } else {
+            alert('This movie is already on your list!');
+        }
+      });
+
+      document.getElementById(`ptw-${id}`).addEventListener('click', () => {
+        if (!isPlanToWatch) {
+            isPlanToWatch = true;
+            const checkIcon = document.getElementById(`bookmark-${id}`);
+            checkIcon.textContent = '✔️';
+            saveMovieAction(movie, "plan_to_watch_movie"); 
+        } else {
+            alert('This movie is already on your list!');
+        }
       });
 
       document.getElementById(id).addEventListener('click', () => {
-          console.log(id);
           openNav(movie);
       });
   });
@@ -330,7 +345,6 @@ const overlayContent = document.getElementById('overlay-content');
 function openNav(movie) {
   let id = movie.id;
   fetch(BASE_URL + '/movie/'+id+'/videos?'+API_KEY).then(res => res.json()).then(videoData => {
-    console.log(videoData);
     if(videoData){
       document.getElementById("myNav").style.width = "100%";
       if(videoData.results.length > 0){
@@ -455,38 +469,40 @@ function pageCall(page){
   }
 }
 
-function saveMovie(movie) {
-    const payload = {
-        action: "save_movie",
-        id: movie.id,
-        title: movie.title,
-        poster_path: movie.poster_path ? movie.poster_path : null,
-        rating: movie.vote_average,
-        genre: movie.genre_ids.map(id => genres.find(g => g.id === id)?.name).join(", "),
-        overview: movie.overview
-    };
-    
-    fetch('../Dashboard/dashboard.php', { 
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(payload)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.success) {
-            console.log("Movie saved:", payload.title);
-        } else {
-            console.error("Server error:", data.message);
-        }
-    })
-    .catch(error => {
-        console.error("Fetch error:", error);
-    });
+function saveMovieAction(movie, actionType) {
+  const Year = movie.release_date ? movie.release_date.split('-')[0] : '0'; 
+  const payload = {
+      action: actionType,
+      id: movie.id,
+      title: movie.title,
+      year: Year,
+      poster_path: movie.poster_path ? movie.poster_path : null,
+      rating: movie.vote_average,
+      genre: movie.genre_ids.map(id => genres.find(g => g.id === id)?.name).join(", "),
+      overview: movie.overview
+  };
+
+  fetch('../Dashboard/dashboard.php', { 
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(payload)
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+  })
+  .then(data => {
+      if (data.success) {
+          console.log(data.message);
+      } else {
+          console.error("Server error:", data.message);
+      }
+  })
+  .catch(error => {
+      console.error("Fetch error:", error);
+  });
 }

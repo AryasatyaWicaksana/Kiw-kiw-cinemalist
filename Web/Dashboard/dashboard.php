@@ -3,42 +3,71 @@ require_once '../service/database.php';
 session_start();
 
 if(isset($_SESSION["is_login"]) == false) {
-    header("location: ../../index.php");
-    exit();
+        header("location: ../../index.php");
+        exit();
 }
 
-// Periksa jika ada data POST untuk menyimpan film
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST["action"] === "save_movie") {
-    header('Content-Type: application/json'); // Pastikan respons JSON
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"])) {
+    header('Content-Type: application/json');
     try {
-        if (isset($_POST["title"], $_POST["poster_path"], $_POST["rating"], $_POST["genre"], $_POST["overview"], $_POST["id"])) {
-            // Ambil data dari POST
+        if(isset($_POST["id"], $_POST["title"], $_POST["year"], $_POST["poster_path"], $_POST["rating"], $_POST["genre"], $_POST["overview"])){
             $user_id = $_SESSION["user_id"];
+            $movie_id = $_POST["id"];
             $title = $_POST["title"];
+            $year = $_POST["year"];
             $poster_path = $_POST["poster_path"];
             $rating = $_POST["rating"];
             $genre = $_POST["genre"];
             $overview = $_POST["overview"];
-            $movie_id = $_POST["id"];
-            
-            // Query untuk menyimpan data
-            $query = "INSERT INTO movie_list (user_id, movie_id, title, poster_path, rating, genre, overview, created_at) 
-                      VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())";
-            $result = pg_query_params($dbconn, $query, [$user_id, $movie_id, $title, $poster_path, $rating, $genre, $overview]);
+            $validActions = ["like_movie", "complete_movie", "plan_to_watch_movie"];
+            if (in_array($_POST["action"], $validActions)) {
+                $column = match ($_POST["action"]) {
+                    "like_movie" => "like_status",
+                    "complete_movie" => "completed_status",
+                    "plan_to_watch_movie" => "plan_to_watch_status"
+                };
+            }
 
-            // Kirim respons JSON
-            if ($result) {
-                echo json_encode(["success" => true, "message" => "Movie saved successfully"]);
+            $queryList = "SELECT movie_id FROM movie_list WHERE movie_id = $1";
+            $listMovie = pg_query_params($dbconn, $queryList, [$movie_id]);
+            if (pg_num_rows($listMovie) === 0) {
+                $insertQuery = "INSERT INTO movie_list (movie_id, title, movie_year, poster_path, rating, genre, overview, created_at) 
+                                VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())";
+                $insertResult = pg_query_params($dbconn, $insertQuery, [$movie_id, $title, $year, $poster_path, $rating, $genre, $overview]);
+                
+                if ($insertResult) {
+                    echo json_encode(["success" => true, "message" => "saved successfully"]);
+                } else {
+                    echo json_encode(["success" => false, "message" => pg_last_error($dbconn)]);
+                }
+            }
+
+            $queryStatus = "SELECT id_user, id_movie FROM movie_status WHERE id_user = $1 AND id_movie = $2";
+            $statusMovie = pg_query_params($dbconn, $queryStatus, [$user_id, $movie_id]);
+            if (pg_num_rows($statusMovie) > 0) {
+                $updateQuery = "UPDATE movie_list SET $column = TRUE WHERE user_id = $1 AND movie_id = $2";
+                $updateResult = pg_query_params($dbconn, $updateQuery, [$user_id, $movie_id]);
+                if ($updateResult) {
+                    echo json_encode(["success" => true, "message" => "updated successfully"]);
+                } else {
+                    echo json_encode(["success" => false, "message" => pg_last_error($dbconn)]);
+                }
             } else {
-                echo json_encode(["success" => false, "message" => pg_last_error($dbconn)]);
+                $insertQuery = "INSERT INTO movie_status (id_user, id_movie, $column) VALUES ($1, $2, TRUE)";
+                $insertResult = pg_query_params($dbconn, $insertQuery, [$user_id, $movie_id]);
+                if ($insertResult) {
+                    echo json_encode(["success" => true, "message" => ucfirst(str_replace("_", " ", $column)) . " saved successfully"]);
+                } else {
+                    echo json_encode(["success" => false, "message" => pg_last_error($dbconn)]);
+                }
             }
         } else {
-            echo json_encode(["success" => false, "message" => "Invalid input"]);
+            echo json_encode(["success" => false, "message" => "Invalid action"]);
         }
     } catch (Exception $e) {
         echo json_encode(["success" => false, "message" => $e->getMessage()]);
     }
-    exit(); // Penting untuk menghentikan eksekusi
+    exit();
 }
 ?>
 
