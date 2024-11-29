@@ -10,22 +10,21 @@
 <!DOCTYPE html>
 <html lang="en" style="scroll-padding-top: 50px; height: 50px;">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
-    <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="Web/Assets/img/Logo kiw-kiw.png">
+    <link rel="icon" href="Web/Assets/img/icon fix kiw kiw.png">
 </head>
 
 <body data-bs-smooth-scroll="true">
     <header class="navbar navbar-expand-lg bg-dark py-2 sticky-top" style="box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5)">
         <div class="container-fluid">
             <div class="d-flex align-items-center">
-                <img class="me-2" src="Web/Assets/img/Logo kiw-kiw.png" alt="Kiw Kiw Logo">
-                <h1 class="navbar-brand text-white h4 mb-0">Kiw Kiw Cinema List</h1>
+                <img class="me-2" src="Web/Assets/img/logo navbar fix kiw kiw.png" alt="Kiw Kiw Logo">
             </div>
             <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

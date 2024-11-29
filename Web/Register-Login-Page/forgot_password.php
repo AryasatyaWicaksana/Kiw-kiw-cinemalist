@@ -112,7 +112,7 @@ if (isset($_POST['fpass']) && $_SESSION['current_fstep'] === 3) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="../Assets/img/Logo kiw-kiw.png">
+    <link rel="icon" href="../Assets/img/icon fix kiw kiw.png">
     <title>Forgot Password</title>
 </head>
 <body class="text-white" style="background-color: #302e2e;">
