@@ -34,7 +34,7 @@
         </div>
         <div class="profile-item text-center mb-4">
             <label class="fs-4">Username:</label>
-            <span class="user-name"><?= $_SESSION["username"] ?></span>
+            <span class="user-name fs-4"><?= $_SESSION["username"] ?></span>
         </div>
 
         <div class="d-flex flex-wrap justify-content-center align-items-center btn-container">
