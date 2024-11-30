@@ -42,9 +42,9 @@
         </div>
 
         <div class="d-flex justify-content-center align-items-center btn-container mb-4">
-            <a heref="like-list.php" class="edit-profile text-center mx-2">Liked</a>
-            <a heref="completed-list.php" class="edit-profile text-center mx-5">Completed</a>
-            <a heref="plant-to-watch.php" class="edit-profile text-center mx-2">Plan to Watch</a>
+            <a href="like-list.php" class="edit-profile text-center mx-2">Liked</a>
+            <a href="completed-list.php" class="edit-profile text-center mx-5">Completed</a>
+            <a href="plant-to-watch.php" class="edit-profile text-center mx-2">Plan to Watch</a>
         </div>
 
         <form action="profile.php" method="POST" class="text-center mt-4">
