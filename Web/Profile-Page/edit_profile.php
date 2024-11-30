@@ -1,3 +1,9 @@
+<?php
+    require_once '../service/database.php';
+
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,14 +22,13 @@
             <div class="mb-4 text-center">
                 <label for="profilePhoto" class="form-label">Profile Photo</label>
                 <div>
-                    <img id="previewImage" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" 
+                    <img id="previewImage" src="../Assets/img/blank-profile-picture.png" 
                         alt="Profile Preview" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
                 </div>
-                <input type="file" class="form-control mt-2" id="profilePhoto" name="profilePhoto" accept="image/*">
             </div>
             <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" value="">
+                <label for="name" class="form-label">Username</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter a new username" value="">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">New Password</label>
