@@ -9,7 +9,6 @@ use PHPMailer\PHPMailer\Exception;
 $email_name = $_ENV['EMAIL_NAME'];
 $email_pass = $_ENV['EMAIL_PASS'];
 
-// Fungsi untuk mengirim kode verifikasi
 function sendVerificationEmail($email, $verification_code, $email_name, $email_pass) {
     $mail = new PHPMailer(true);
     try {
@@ -34,7 +33,7 @@ function sendVerificationEmail($email, $verification_code, $email_name, $email_p
 
         $mail->send();
     } catch (Exception $e) {
-        throw new Exception("Gagal mengirim email verifikasi: {$mail->ErrorInfo}");
+        throw new Exception("Failed to send email: {$mail->ErrorInfo}");
         return false;
     }
     return true;
