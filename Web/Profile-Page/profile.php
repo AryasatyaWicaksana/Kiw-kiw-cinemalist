@@ -26,14 +26,14 @@
     <link rel="icon" href="../Assets/img/icon fix kiw kiw.png">
 </head>
 <body>
-    <div class="container my-5 position-relative" style="top: 8rem; width: 100%;">  
+    <div class="container my-5 position-relative" style=" align-items: center; width: 100%;">  
         <a href="../Dashboard/dashboard.php" class="back-button position-absolute top-0 end-0 mt-2 me-3" style="font-size: 25px;">X</a>
         <h1 class="text-center">Profile</h1>
         <div class="profile-photo text-center mb-4">
             <img src="../Assets/img/blank-profile-picture.png" alt="Profile Photo" class="img-fluid rounded-circle" style="max-width: 150px;">
         </div>
         <div class="profile-item text-center mb-4">
-            <label>Username:</label>
+            <label class="fs-4">Username:</label>
             <span class="user-name"><?= $_SESSION["username"] ?></span>
         </div>
 

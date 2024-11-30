@@ -91,3 +91,42 @@ label {
     border-radius: 5px;
     box-shadow: 0 0 5px red, 0 0 25px red, 0 0 50px red, 0 0 100px red;
 }
+
+.table-responsive {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table-dark th {
+    background-color: #444 !important; 
+    color: #fff !important;          
+}
+
+.table-dark td {
+    background-color: #333 !important; 
+    color: #ddd;                     
+}
+
+.overview-cell {
+    white-space: nowrap; 
+    overflow: auto;
+    max-width: 200px; 
+}
+
+@media (max-width: 768px) {
+    .table th, .table td {
+        font-size: 0.875rem; 
+    }
+    .table img {
+        width: 75px;
+    }
+    .overview-cell {
+        max-width: 150px;
+    }
+}
