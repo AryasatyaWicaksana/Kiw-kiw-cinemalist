@@ -26,30 +26,29 @@
     <link rel="icon" href="../Assets/img/icon fix kiw kiw.png">
 </head>
 <body>
-    <div class="container position-relative">
+    <div class="container position-relative position-absolute bottom-0 start-50 translate-middle-x" style="height: 500px">
         <a href="../Dashboard/dashboard.php" class="back-button position-absolute top-0 end-0 mt-2 me-3" style="font-size: 25px;">X</a>
-        <h1 class="text-center mt-3">Profile</h1>
-        <div class="profile-photo text-center mb-3">
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile Photo">
+        <h1 class="text-center">Profile</h1>
+        <div class="profile-photo text-center mb-5">
+            <img src="../Assets/img/blank-profile-picture.png" alt="Profile Photo">
         </div>
-        <div class="profile-item text-center mb-3">
-            <label>Name:</label>
+        <div class="profile-item text-center mt-5">
+            <label>Username:</label>
             <span class="user-name"><?= $_SESSION["username"] ?></span>
         </div>
+
+        <br><br><br><br>
         
-        <div class="text-center mb-4">
-            <a href="edit_profile.php" class="edit-profile">Edit Profile</a>
+        <div class="d-flex justify-content-between align-items-center btn-container" >
+            <a href="edit_profile.php" class="edit-profile text-center">Edit Profile</a>
+            <a href="like.php" class="edit-profile text-center">Liked</a>
+            <a href="completed.php" class="edit-profile text-center">Completed</a>
+            <a href="plan-to-watch.php" class="edit-profile text-center">Plan to Watch</a>
+            <form action="profile.php" method="POST" class="text-center">
+                <button type="submit" class="logout-btn btn-lg" name="logout">Logout</button>
+            </form>
         </div>
 
-        <div class="d-flex justify-content-center align-items-center btn-container mb-4">
-            <a href="like-list.php" class="edit-profile text-center mx-2">Liked</a>
-            <a href="completed-list.php" class="edit-profile text-center mx-5">Completed</a>
-            <a href="plant-to-watch.php" class="edit-profile text-center mx-2">Plan to Watch</a>
-        </div>
-
-        <form action="profile.php" method="POST" class="text-center mt-4">
-            <button type="submit" class="logout-btn btn-lg" name="logout">Logout</button>
-        </form>
     </div>
     <script src="../../Bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
