@@ -125,7 +125,7 @@ const genres = [
   ]
 
 const main = document.getElementById('main');
-const form =  document.getElementById('form');
+const form =  document.getElementById('search-form');
 const search = document.getElementById('search');
 const tagsEl = document.getElementById('tags');
 
