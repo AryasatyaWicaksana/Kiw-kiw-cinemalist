@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['movie_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan to Watch List Movie Page</title>
+    <title>Plan to Watch Movie List Page</title>
     <link href="../../Bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['movie_id'])) {
 <body>
     <div class="container mt-5 position-relative">
         <a href="profile.php" class="back-button position-absolute top-0 end-0 mt-2 me-3" style="font-size: 25px;">X</a>
-        <h1 class="text-center mb-4">Liked Movie List</h1>
+        <h1 class="text-center mb-4">Plan to Watch Movie List</h1>
         <div class="table-responsive"> <!-- Tambahkan div ini untuk responsivitas -->
             <table class="table table-striped table-dark table-bordered">
             <thead class="thead-dark">
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['movie_id'])) {
                             <td><?= htmlspecialchars($movie['genre']); ?></td>
                             <td class="overview-cell"><?= htmlspecialchars($movie['overview']); ?></td>
                             <td>
-                                <form method="post" action="like.php">
+                                <form method="post" action="plan-to-watch.php">
                                     <input type="hidden" name="movie_id" value="<?= $movie['movie_id']; ?>">
                                     <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                                 </form>

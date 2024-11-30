@@ -75,7 +75,7 @@ header{
   content: '';
   position: absolute;
   width: 2.5rem;
-  height: 2.5rem;
+  height: 0.25rem;
   background-color: var(--text-color);
   transition: transform 0.3s ease-in-out;
 }
@@ -98,13 +98,13 @@ header{
 
 .hamburger.active span:before {
   transform: rotate(-45deg);
-  top: 1.625rem;
+  top: 2.7rem;
   right: 1.25rem;
 }
 
 .hamburger.active span:after {
   transform: rotate(45deg);
-  top: 1.625rem;
+  top: 2.7rem;
   right: 1.25rem;
 }
 
@@ -409,18 +409,17 @@ main{
 }
 
 .arrow.left-arrow{
-  top:50%;
+  bottom: 5%;
   left:5%;
-  transform: translateY(-50%);
 }
 
 .arrow.right-arrow{
-  top:50%;
-  transform: translateY(-50%);
+  bottom: 5%;
   right:5%;
 }
 
-.dots .dot {
+.dot {
+  display: none;
   padding: 0.3125rem 1rem;
   color: var(--text-color);
   font-size: 1.25rem;
@@ -428,6 +427,10 @@ main{
   margin: 0.3125rem;
   position: relative;
   cursor: pointer; 
+}
+
+.dot.active {
+  display: inline-block;
 }
 
 .dots .dot::after {

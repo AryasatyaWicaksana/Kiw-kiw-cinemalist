@@ -383,14 +383,13 @@ function openNav(movie) {
           if(site == 'YouTube'){
               
             embed.push(`
-              <iframe width="800" height="350" style="margin-bottom:3rem;" src="https://www.youtube.com/embed/${key}" title="${name}" class="embed hide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe width="600" height="350" style="margin-bottom:3rem;" src="https://www.youtube.com/embed/${key}" title="${name}" class="embed hide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           
           `)
-
-            dots.push(`
-              <span class="dot">${idx + 1}</span>
-            `)
           }
+          dots.push(`
+            <span class="dot">${idx + 1}</span>
+          `)
         })
         
         var content = `
