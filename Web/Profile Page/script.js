@@ -1,4 +1,3 @@
-// Function to preview the uploaded profile photo
 function previewImage(event) {
     const reader = new FileReader();
     reader.onload = function () {
@@ -8,5 +7,4 @@ function previewImage(event) {
     reader.readAsDataURL(event.target.files[0]);
 }
 
-// Attach event listener to the file input for real-time preview
 document.getElementById('profilePhoto').addEventListener('change', previewImage);
