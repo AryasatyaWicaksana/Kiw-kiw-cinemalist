@@ -128,10 +128,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"])) {
             <form id="year-form">
                 <input type="number" id="year-input" class="search" placeholder="Enter Year" min="1600" max="2100">
             </form>
-            <form id="seacrh-form">
+            <form id="search-form">
                 <input type="text" id="search" class="search" placeholder="Search...">
             </form>
-            <a href="../Profile Page/profile.php" class="profile-btn">
+            <a href="../Profile-Page/profile.php" class="profile-btn">
                 <img src="../Assets/img/blank-profile-picture.png" alt="Profile Picture" id="profile-picture">
             </a>
         </div>
