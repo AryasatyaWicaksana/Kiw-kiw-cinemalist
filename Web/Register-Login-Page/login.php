@@ -18,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $password = trim($_POST['password']);
 
     if (empty($email) || empty($password)) {
-        $login_message = "Email dan password wajib diisi!";
+        $login_message = "Email and password are required!";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $login_message = "Email tidak valid.";
+        $login_message = "The email is invalid.";
     } else {
         try {
             $sql = "SELECT * FROM user_list WHERE email = $1";
@@ -38,14 +38,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                     header('Location: ../Dashboard/dashboard.php');
                     exit();
                 } else {
-                    $login_message = "Email atau password salah.";
+                    $login_message = "Wrong email or password.";
                 }
             } else {
-                $login_message = "Akun dengan email tersebut tidak ditemukan.";
+                $login_message = "The account with the email was not found.";
             }
         } catch (Exception $e) {
             error_log("Error during login: " . $e->getMessage());
-            $login_message = "Terjadi kesalahan saat login. Silakan coba lagi.";
+            $login_message = "An error occurred while logging in. Please try again.";
         } finally {
             pg_close($dbconn);
         }
