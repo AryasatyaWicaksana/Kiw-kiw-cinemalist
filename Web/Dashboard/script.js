@@ -5,17 +5,15 @@ document.addEventListener("DOMContentLoaded", function() {
   const imgElement = document.getElementById('picture');
 
   function updateImageSrc() {
-    if (window.innerWidth <= 1150) { 
-      imgElement.src = '../Assets/img/icon fix kiw kiw.png'; // Gambar untuk layar kecil
+    if (window.innerWidth <= 999) { 
+      imgElement.src = '../Assets/img/icon fix kiw kiw.png';
     } else {
-      imgElement.src = '../Assets/img/Logo navbar fix kiw kiw.png'; // Gambar untuk layar besar
+      imgElement.src = '../Assets/img/Logo navbar fix kiw kiw.png';
     }
   }
 
-  // Panggil fungsi saat halaman dimuat
   updateImageSrc();
 
-  // Panggil fungsi setiap kali ukuran layar berubah
   window.addEventListener('resize', updateImageSrc);
 
   function updatePadding() {
@@ -30,6 +28,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
   profilePicture.onload = updatePadding;
   profilePicture.onerror = updatePadding;
+});
+
+const hamburger = document.getElementById('menu-toggle');
+const headerRight = document.querySelector('.header-right');
+
+hamburger.addEventListener('click', function() {
+  hamburger.classList.toggle('active');
+  headerRight.classList.toggle('active');
+});
+
+document.addEventListener('click', function(e) {
+  if (!hamburger.contains(e.target) && !headerRight.contains(e.target)) {
+    hamburger.classList.remove('active');
+    headerRight.classList.remove('active');
+  }
 });
 
 const genres = [
@@ -200,13 +213,13 @@ ratingForm.addEventListener('change', (e) => {
 
   const selectedRating = ratingSelect.value;
   if (selectedRating !== '') {
-      // Hitung rentang rating
       const minRating = parseFloat(selectedRating);
       const maxRating = minRating + 0.999;
 
-      // URL dengan filter rating
       const ratingURL = `${API_URL}&vote_average.gte=${minRating}&vote_average.lte=${maxRating}`;
       getMovies(ratingURL);
+  } else {
+    getMovies(API_URL);
   }
 });
 
@@ -217,7 +230,7 @@ yearForm.addEventListener('submit', (e) => {
   if (year) {
       const yearURL = `${API_URL}&primary_release_year=${year}`;
       getMovies(yearURL);
-      yearInput.value = ''; // Reset input setelah submit
+      yearInput.value = '';
   }
 });
 
