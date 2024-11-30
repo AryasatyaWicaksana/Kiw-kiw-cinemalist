@@ -20,29 +20,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
     $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
 
     if (empty($email)) {
-        $register_message = "Email wajib diisi.";
+        $register_message = "Email have to be inputed";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $register_message = "Format email tidak valid.";
+        $register_message = "Email's format invalid";
     } else {
         try {
             $check_email_query = "SELECT email FROM user_list WHERE email = $1";
             $check_email_result = pg_query_params($dbconn, $check_email_query, [$email]);
 
             if (!$check_email_result) {
-                throw new Exception("Gagal memeriksa email. Silakan coba lagi.");
+                throw new Exception("Failed to check email, please try again later");
             }
 
             if (pg_num_rows($check_email_result) > 0) {
-                $register_message = "Email sudah terdaftar. Silakan gunakan email lain.";
+                $register_message = "Email has registered. Please use another email.";
             } else {
                 $verification_code = str_pad(random_int(100000, 999999), 6, '0', STR_PAD_LEFT);
 
                 $_SESSION['email'] = $email;
                 $_SESSION['verification_code'] = $verification_code;
-                $_SESSION['verification_expiry'] = time() + 300; // 5 menit masa berlaku
+                $_SESSION['verification_expiry'] = time() + 300;
 
                 if (!sendVerificationEmail($email, $verification_code, $email_name, $email_pass)) {
-                    throw new Exception("Gagal mengirim email verifikasi. Silakan coba lagi.");
+                    throw new Exception("Faild to send email's verification. Please try again later");
                 } else {
                     $_SESSION['current_step'] = 2;
                 }
@@ -60,13 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
 if (isset($_POST['submit_code']) && $_SESSION['current_step'] === 2) {
     $code = trim($_POST['code']);
     if (time() > $_SESSION['verification_expiry']) {
-        $register_message = "Kode verifikasi telah kedaluwarsa.";
+        $register_message = "Verification code has been expired";
         session_destroy();
     } elseif ($code === $_SESSION['verification_code']) {
         unset($_SESSION['verification_code']);
         $_SESSION['current_step'] = 3;
     } else {
-        $register_message = "Kode verifikasi salah.";
+        $register_message = "Wrong verficitaion code";
     }
 }
 
@@ -79,9 +79,9 @@ if (isset($_POST['register']) && $_SESSION['current_step'] === 3) {
     if (empty($username) || empty($password) || empty($confirm_password)) {
         $register_message = "Semua field wajib diisi!";
     } elseif ($password !== $confirm_password) {
-        $register_message = "Password dan konfirmasi password tidak cocok!";
+        $register_message = "Password and confirm password didn't match!";
     } elseif (strlen($password) < 8) {
-        $register_message = "Password harus memiliki minimal 8 karakter!";
+        $register_message = "Password must be at least 8 character!";
     } else {
         try {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -95,10 +95,10 @@ if (isset($_POST['register']) && $_SESSION['current_step'] === 3) {
                 header('Location: login.php');
                 exit();
             } else {
-                throw new Exception("Gagal menyimpan data pengguna.");
+                throw new Exception("Failed to save user data.");
             }
         } catch (Exception $e) {
-            $register_message = "Terjadi kesalahan saat memproses pendaftaran.";
+            $register_message = "Error during registration.";
             error_log("Error during registration: " . $e->getMessage());
         } finally {
             pg_close($dbconn);

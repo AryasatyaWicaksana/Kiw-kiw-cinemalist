@@ -7,6 +7,39 @@ if(isset($_SESSION["is_login"]) == false) {
         exit();
 }
 
+function updateOrInsertMovieStatus($dbconn, $user_id, $movie_id, $column) {
+    try {
+        $queryStatus = "SELECT id_user, id_movie FROM movie_status WHERE id_user = $1 AND id_movie = $2";
+        $statusMovie = pg_query_params($dbconn, $queryStatus, [$user_id, $movie_id]);
+
+        if (!$statusMovie) {
+            throw new Exception("Error checking movie status: " . pg_last_error($dbconn));
+        }
+
+        if (pg_num_rows($statusMovie) > 0) {
+            $updateQuery = "UPDATE movie_status SET $column = TRUE WHERE id_user = $1 AND id_movie = $2";
+            $updateResult = pg_query_params($dbconn, $updateQuery, [$user_id, $movie_id]);
+
+            if (!$updateResult) {
+                throw new Exception("Error updating movie status: " . pg_last_error($dbconn));
+            }
+
+            return ["success" => true, "message" => "Status updated successfully"];
+        } else {
+            $insertQuery = "INSERT INTO movie_status (id_user, id_movie, $column) VALUES ($1, $2, TRUE)";
+            $insertResult = pg_query_params($dbconn, $insertQuery, [$user_id, $movie_id]);
+
+            if (!$insertResult) {
+                throw new Exception("Error inserting movie status: " . pg_last_error($dbconn));
+            }
+
+            return ["success" => true, "message" => ucfirst(str_replace("_", " ", $column)) . " saved successfully"];
+        }
+    } catch (Exception $e) {
+        return ["success" => false, "message" => $e->getMessage()];
+    }
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"])) {
     header('Content-Type: application/json');
     try {
@@ -34,32 +67,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"])) {
                 $insertQuery = "INSERT INTO movie_list (movie_id, title, movie_year, poster_path, rating, genre, overview, created_at) 
                                 VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())";
                 $insertResult = pg_query_params($dbconn, $insertQuery, [$movie_id, $title, $year, $poster_path, $rating, $genre, $overview]);
-                
+
+                updateOrInsertMovieStatus($dbconn, $user_id, $movie_id, $column);
+
                 if ($insertResult) {
                     echo json_encode(["success" => true, "message" => "saved successfully"]);
                 } else {
                     echo json_encode(["success" => false, "message" => pg_last_error($dbconn)]);
                 }
-            }
-
-            $queryStatus = "SELECT id_user, id_movie FROM movie_status WHERE id_user = $1 AND id_movie = $2";
-            $statusMovie = pg_query_params($dbconn, $queryStatus, [$user_id, $movie_id]);
-            if (pg_num_rows($statusMovie) > 0) {
-                $updateQuery = "UPDATE movie_list SET $column = TRUE WHERE user_id = $1 AND movie_id = $2";
-                $updateResult = pg_query_params($dbconn, $updateQuery, [$user_id, $movie_id]);
-                if ($updateResult) {
-                    echo json_encode(["success" => true, "message" => "updated successfully"]);
-                } else {
-                    echo json_encode(["success" => false, "message" => pg_last_error($dbconn)]);
-                }
             } else {
-                $insertQuery = "INSERT INTO movie_status (id_user, id_movie, $column) VALUES ($1, $2, TRUE)";
-                $insertResult = pg_query_params($dbconn, $insertQuery, [$user_id, $movie_id]);
-                if ($insertResult) {
-                    echo json_encode(["success" => true, "message" => ucfirst(str_replace("_", " ", $column)) . " saved successfully"]);
-                } else {
-                    echo json_encode(["success" => false, "message" => pg_last_error($dbconn)]);
-                }
+                updateOrInsertMovieStatus($dbconn, $user_id, $movie_id, $column);
             }
         } else {
             echo json_encode(["success" => false, "message" => "Invalid action"]);
