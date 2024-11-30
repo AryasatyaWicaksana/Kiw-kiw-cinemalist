@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"])) {
 <body> 
     <header>
         <div class="d-flex align-items-center">
-            <img class="me-2" src="../Assets/img/logo navbar fix kiw kiw.png" alt="Kiw Kiw Logo" class="logo-img">
+            <img class="me-2" src="../Assets/img/logo navbar fix kiw kiw.png" alt="Kiw Kiw Logo" id="picture">
         </div>
         <div class="header-right">
             <form id="rating-form">

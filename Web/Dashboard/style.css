@@ -27,27 +27,21 @@ header{
 }
 
 #year-input {
-  -moz-appearance: textfield; /* Untuk Firefox */
+  -moz-appearance: textfield;
   width: 7.5rem;
   text-align: center;
 }
 
 #year-input::-webkit-inner-spin-button,
 #year-input::-webkit-outer-spin-button {
-  -webkit-appearance: none; /* Untuk Chrome, Safari, dan Edge */
+  -webkit-appearance: none;
   margin: 0;
-}
-
-
-.logo-img {
-  height: 40px;
-  margin-left: 30px; 
-  margin-right: 10px;
 }
 
 .d-flex.align-items-center {
   display: flex;
   align-items: center;
+  max-width: 15rem;
 }
 
 .d-flex.align-items-center img {

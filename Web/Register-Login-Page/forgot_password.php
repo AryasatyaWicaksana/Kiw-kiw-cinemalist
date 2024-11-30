@@ -20,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
     $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
 
     if (empty($email)) {
-        $fpass_message = "Email wajib diisi!";
+        $fpass_message = "Email required!";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $fpass_message = "Email tidak valid.";
+        $fpass_message = "The email is invalid.";
     } else {
         try {
             $sql = "SELECT * FROM user_list WHERE email = $1";
@@ -33,19 +33,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
 
                 $_SESSION['email'] = $email;
                 $_SESSION['verification_code'] = $verification_code;
-                $_SESSION['verification_expiry'] = time() + 300; // 5 menit masa berlaku
+                $_SESSION['verification_expiry'] = time() + 300; // 5 minutes validity period
 
                 if (!sendVerificationEmail($email, $verification_code, $email_name, $email_pass)) {
-                    throw new Exception("Gagal mengirim email verifikasi. Silakan coba lagi.");
+                    throw new Exception("Failed to send verification email. Please try again.");
                 } else {
                     $_SESSION['current_fstep'] = 2;
                 }
             } else {
-                $fpass_message = "Email tidak ditemukan.";
+                $fpass_message = "The email was not found.";
             }
         } catch (Exception $e) {
             error_log("Error during email verification: " . $e->getMessage());
-            $fpass_message = "Terjadi kesalahan. Silakan coba lagi.";
+            $fpass_message = "An error occurred. Please try again.";
         } finally {
             pg_close($dbconn);
         }
@@ -56,13 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_email'])) {
 if (isset($_POST['submit_code']) && $_SESSION['current_fstep'] === 2) {
     $code = trim($_POST['code']);
     if (time() > $_SESSION['verification_expiry']) {
-        $fpass_message = "Kode verifikasi telah kedaluwarsa.";
+        $fpass_message = "The verification code has expired.";
         session_destroy();
     } elseif ($code === $_SESSION['verification_code']) {
         unset($_SESSION['verification_code']);
         $_SESSION['current_fstep'] = 3;
     } else {
-        $fpass_message = "Kode verifikasi salah.";
+        $fpass_message = "The verification code is incorrect.";
     }
 }
 
@@ -72,11 +72,11 @@ if (isset($_POST['fpass']) && $_SESSION['current_fstep'] === 3) {
     $confirm_password = $_POST['confirm-password'];
 
     if (empty($password) || empty($confirm_password)) {
-        $fpass_message = "Semua field wajib diisi!";
+        $fpass_message = "All fields are required!";
     } elseif ($password !== $confirm_password) {
-        $fpass_message = "Password dan konfirmasi password tidak cocok!";
+        $fpass_message = "Password and password confirmation do not match!";
     } elseif (strlen($password) < 8) {
-        $fpass_message = "Password harus memiliki minimal 8 karakter!";
+        $fpass_message = "Passwords must be at least 8 characters long!";
     } else {
         try {
             $email = $_SESSION['email'];
@@ -91,11 +91,11 @@ if (isset($_POST['fpass']) && $_SESSION['current_fstep'] === 3) {
                 header('Location: login.php');
                 exit();
             } else {
-                $fpass_message = "Terjadi kesalahan saat memperbarui password.";
+                $fpass_message = "An error occurred while updating the password.";
             }
         } catch (Exception $e) {
             error_log("Error during password reset: " . $e->getMessage());
-            $fpass_message = "Terjadi kesalahan. Silakan coba lagi.";
+            $fpass_message = "An error occurred. Please try again.";
         } finally {
             pg_close($dbconn);
         }

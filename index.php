@@ -71,7 +71,7 @@
     <section id="about" class="about-us container text-bg-dark p-5 rounded-4" style="box-shadow: 10px 20px 25px rgba(0, 0, 0, 0.7);">
         <h2 class="text-center mb-4">About Us</h2>
         <p>
-            Kiw Kiw Cinema List is an interactive movie database platform designed for film enthusiasts to explore,
+            Kiw Kiw Cinemalist is an interactive movie database platform designed for film enthusiasts to explore,
             curate, and manage their own movie lists. Users can easily create personalized watchlists, adding movies
             they've watched or plan to see. The website offers a user-friendly interface where visitors can search
             for a wide variety of films, view detailed information like genres, release dates, and cast, and organize
@@ -80,7 +80,7 @@
         <p>
             In addition to building custom movie lists, users can browse an extensive database of movies available
             on the platform. Whether looking for popular titles, recent releases, or hidden gems, Kiw Kiw Cinema
-            List provides a comprehensive and streamlined experience for discovering new movies. The platform is a
+            List provides a comprehensive and streamlined experience for discovering new movies. Kiw Kiw Cinemalist is a
             perfect companion for anyone who loves to keep track of their viewing history and find their next
             favorite film.
         </p>

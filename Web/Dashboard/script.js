@@ -2,6 +2,22 @@ document.addEventListener("DOMContentLoaded", function() {
   const profilePicture = document.getElementById('profile-picture');
   const profileButton = document.querySelector('.profile-btn');
 
+  const imgElement = document.getElementById('picture');
+
+  function updateImageSrc() {
+    if (window.innerWidth <= 1150) { 
+      imgElement.src = '../Assets/img/icon fix kiw kiw.png'; // Gambar untuk layar kecil
+    } else {
+      imgElement.src = '../Assets/img/Logo navbar fix kiw kiw.png'; // Gambar untuk layar besar
+    }
+  }
+
+  // Panggil fungsi saat halaman dimuat
+  updateImageSrc();
+
+  // Panggil fungsi setiap kali ukuran layar berubah
+  window.addEventListener('resize', updateImageSrc);
+
   function updatePadding() {
       if (profilePicture.complete && profilePicture.naturalWidth !== 0) {
           profileButton.style.padding = '0';
