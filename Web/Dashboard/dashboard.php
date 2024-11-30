@@ -86,27 +86,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"])) {
         <div class="d-flex align-items-center">
             <img class="me-2" src="../Assets/img/logo navbar fix kiw kiw.png" alt="Kiw Kiw Logo" id="picture">
         </div>
+        <button id="menu-toggle" class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <div class="header-right">
             <form id="rating-form">
                 <select id="rating-select" class="search" style="width: 10.5rem;">
-                <option value="" disabled selected>Sort by Rating</option>
-                    <option value="0" style="text-align: center;">0</option>
-                    <option value="1" style="text-align: center;">1</option>
-                    <option value="2" style="text-align: center;">2</option>
-                    <option value="3" style="text-align: center;">3</option>
-                    <option value="4" style="text-align: center;">4</option>
-                    <option value="5" style="text-align: center;">5</option>
-                    <option value="6" style="text-align: center;">6</option>
-                    <option value="7" style="text-align: center;">7</option>
-                    <option value="8" style="text-align: center;">8</option>
-                    <option value="9" style="text-align: center;">9</option>
-                    <option value="10" style="text-align: center;">10</option>
+                    <option value="">Rating</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
                 </select>
             </form>
             <form id="year-form">
                 <input type="number" id="year-input" class="search" placeholder="Enter Year" min="1600" max="2100">
             </form>
-            <form id="form">
+            <form id="seacrh-form">
                 <input type="text" id="search" class="search" placeholder="Search...">
             </form>
             <a href="../Profile Page/profile.php" class="profile-btn">
@@ -120,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"])) {
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div class="overlay-content" id="overlay-content"></div>
         <a href="javascript:void(0)" class="arrow left-arrow" id="left-arrow">&#8656;</a> 
-        <a href="javascript:void(0)" class="arrow right-arrow" id="right-arrow" >&#8658;</a>
+        <a href="javascript:void(0)" class="arrow right-arrow" id="right-arrow">&#8658;</a>
     </div>
 
     <main id="main"></main>
