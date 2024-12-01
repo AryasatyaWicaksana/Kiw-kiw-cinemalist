@@ -1,7 +1,76 @@
 <?php
-    require_once '../service/database.php';
+require_once '../service/database.php';
+session_start();
 
-    
+if (isset($_SESSION['user_id']) === false) {
+    header("Location: ../../index.php");
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["submit"])) {
+    try {
+        $user_id = $_SESSION["user_id"];
+        $username = trim(htmlspecialchars($_POST['name'] ?? ''));
+        $newPassword = trim($_POST['newPassword'] ?? '');
+        $oldPassword = trim($_POST['oldPassword'] ?? '');
+
+        if (!empty($username) && empty($newPassword) && empty($oldPassword)) {
+            $query = "UPDATE user_list SET username = $1 WHERE id = $2";
+            $result = pg_query_params($dbconn, $query, [$username, $user_id]);
+
+            if(!$result){
+                throw new Exception("Error updating username  : ". pg_last_error($dbconn));
+            } else {
+                $_SESSION['username'] = $username;
+                header("Location: profile.php");
+            }
+        } else if (!empty($newPassword) && !empty($oldPassword) && empty($username) && strlen($newPassword) >= 8) {
+            $sql = "SELECT * FROM user_list WHERE id = $1";
+            $result = pg_query_params($dbconn, $sql, [$user_id]);
+
+            if ($result && pg_num_rows($result) > 0) {
+                $user = pg_fetch_assoc($result);
+                
+                if (password_verify($oldPassword, $user['password'])) {
+                    $query = "UPDATE user_list SET password = $1 WHERE id = $2";
+                    $result = pg_query_params($dbconn, $query, [password_hash($newPassword, PASSWORD_DEFAULT), $user_id]);
+
+                    if(!$result){
+                        throw new Exception("Error updating password : " . pg_last_error($dbconn));
+                    } else {
+                        header("Location: profile.php");
+                    }
+                } else {
+                    echo "Old password is incorrect.";
+                }
+            }
+        } else if (!empty($username) && !empty($newPassword) && !empty($oldPassword) && strlen($newPassword) >= 8) {
+            $sql = "SELECT * FROM user_list WHERE id = $1";
+            $result = pg_query_params($dbconn, $sql, [$user_id]);
+
+            if ($result && pg_num_rows($result) > 0) {
+                $user = pg_fetch_assoc($result);
+
+                if (password_verify($oldPassword, $user['password'])) {
+                    $query = "UPDATE user_list SET username = $1, password = $2 WHERE id = $3";
+                    $result = pg_query_params($dbconn, $query, [$username, password_hash($newPassword, PASSWORD_DEFAULT), $user_id]);
+
+                    if(!$result){
+                        throw new Exception("Error updating password : " . pg_last_error($dbconn));
+                    } else {
+                        $_SESSION['username'] = $username;
+                        header("Location: profile.php");
+                    } 
+                } else {
+                    echo "Old password is incorrect.";
+                }
+            }
+        }
+    } catch (Exception $error) {
+        error_log($error->getMessage());
+        exit;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +87,7 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Edit Profile</h1>
-        <form action="edit-profile.php" method="POST" enctype="multipart/form-data">
+        <form action="edit_profile.php" method="POST" enctype="multipart/form-data">
             <div class="mb-4 text-center">
                 <label for="profilePhoto" class="form-label">Profile Photo</label>
                 <div>
@@ -31,16 +100,18 @@
                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter a new username" value="">
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">New Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Enter a new password">
+                <label for="oldPassword" class="form-label">Old Password</label>
+                <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="Enter Your Old password"> 
+                </input>
             </div>
             <div class="mb-3">
-                <label for="confirmPassword" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm your new password">
+                <label for="newPassword" class="form-label">New Password</label>
+                <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Enter a new password">
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-                <a href="profile.php" class="btn btn-secondary">Cancel</a>
+                <a href="delete_acc.php" class="edit-profile">Delete Account</a>
+                <button name="submit" type="submit" class="edit-profile">Save Changes</button>
+                <a href="profile.php" class="edit-profile">Cancel</a>
             </div>
         </form>
     </div>
