@@ -7,6 +7,8 @@ if (isset($_SESSION['user_id']) === false) {
     exit();
 }
 
+$delete_message = "";
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["submit"])) { 
     try {
         $user_id = $_SESSION["user_id"];
@@ -31,25 +33,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["submit"])) {
         
                         if (!$resultUserTable){
                             throw new Exception("Data not found");
+                            $delete_message = "*Data not found!";
                         } else {
                             session_unset();
                             session_destroy();
                             header("location: ../../index.php");
                             exit();
                         }
+                    } else {
+                        $delete_message = "*Incorrect Password!";
                     }
                 }
             } else {
-                throw new Exception("Data not found");
+                $delete_message = "*Data not found!";
             }
         } else {
-            throw new Exception("Email and password are required!");
+            $delete_message = "*Incorrect Password!";
         }
     } catch (Exception $error) {
         error_log($error->getMessage());
         exit;
     }
-    
 }
 
 ?>
@@ -72,21 +76,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["submit"])) {
             <div class="mb-4 text-center">
                 <label for="profilePhoto" class="form-label">Profile Photo</label>
                 <div>
-                    <img id="previewImage" src="../Assets/img/blank-profile-picture.png" 
+                    <img id="previewImage" src="../Assets/profile-img/<?= $_SESSION['user_profile'] ?>" 
                         alt="Profile Preview" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
                 </div>
             </div>
             <div class="mb-3">
-                <label for="email" class="form-label">Enter email</label>
+                <label for="email" class="form-label">Enter email<i class="text-danger ms-2"><?= $delete_message ?></i></label>
                 <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Enter Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
             </div>
-            <div class="text-center">
-                <button type="submit" name="submit" class="edit-profile">Delete Account</button>
-                <a href="profile.php" class="edit-profile">Cancel</a>
+            <div class="text-center  mt-5 mb-3">
+                <button type="submit" name="submit" class="edit-profile delete-btn m-2">Delete Account</button>
+                <a href="profile.php" class="edit-profile btn delete-btn m-2">Cancel</a>
             </div>
         </form>
     </div>

@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['movie_id'])) {
     <div class="container mt-5 position-relative">
         <a href="profile.php" class="back-button position-absolute top-0 end-0 mt-2 me-3" style="font-size: 25px;">X</a>
         <h1 class="text-center mb-4">Completed Movie List</h1>
-        <div class="table-responsive"> <!-- Tambahkan div ini untuk responsivitas -->
+        <div class="table-responsive">
             <table class="table table-striped table-dark table-bordered">
             <thead class="thead-dark">
                 <tr>
