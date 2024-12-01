@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
 * {
     font-family: 'Poppins';
 }
@@ -18,16 +20,15 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.container a{
-    text-decoration: none;
-    color: red;
-}
-
 .profile-photo img {
     border-radius: 50%;
     width: 150px;
     height: 150px;
     object-fit: cover;
+}
+
+.bi-pencil-square {
+    text-decoration: none;
 }
 
 .profile-item {
@@ -40,7 +41,55 @@ label {
     color: #f8f8f8;
 }
 
-.logout-btn, .edit-profile{
+.btn {
+    --bs-btn-color: white;
+}
+
+.bi-pencil:hover {
+    color: red;
+}
+
+#movieList {
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+#newList {
+    padding: 1rem;
+    gap: 1rem;
+    scroll-behavior: smooth;
+    width: 100%;
+}
+
+#newList::-webkit-scrollbar {
+    height: 8px;
+}
+
+#newList::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+#newList::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.movie {
+    flex: 0 0 auto;
+    position: relative;
+    margin: 0.5rem;
+    border-radius: 0.625rem;
+    overflow: hidden;
+}
+
+.movie img {
+    width:100%;
+}
+
+.logout-btn,
+.more-info,
+.edit-profile {
     color: red;
     padding: 10px 20px;
     letter-spacing: 4px;
@@ -51,11 +100,20 @@ label {
     cursor: pointer;
 }
 
-.logout-btn:hover, .edit-profile:hover{
+.logout-btn:hover,
+.more-info:hover,
+.edit-profile:hover {
     background: red;
     color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 5px red, 0 0 25px red, 0 0 50px red, 0 0 100px red;
+}
+
+.delete-acc {
+    position: absolute;
+    font-size: small;
+    letter-spacing: normal;
+    text-transform: none;
 }
 
 .user-name {
@@ -92,6 +150,24 @@ label {
     box-shadow: 0 0 5px red, 0 0 25px red, 0 0 50px red, 0 0 100px red;
 }
 
+.images-container img {
+    width: 30%;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.images-container img:hover {
+    transform: scale(1.1);
+}
+
+.images-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
 .table-responsive {
     overflow-x: auto;
     margin-bottom: 1.5rem;
@@ -119,6 +195,16 @@ label {
     max-width: 200px; 
 }
 
+.edit-profile.m-2,
+.edit-profile.btn.m-2 {
+    width: 25%;
+}
+
+.edit-profile.btn.delete-btn.m-2,
+.edit-profile.delete-btn.m-2 {
+    width: 30%;
+}
+
 @media (max-width: 768px) {
     .table th, .table td {
         font-size: 0.875rem; 
@@ -126,7 +212,27 @@ label {
     .table img {
         width: 75px;
     }
+
+    .movie {
+        width: 40%;
+    }
+
     .overview-cell {
         max-width: 150px;
+    }
+
+    .delete-acc{
+        padding: 5px 10px;
+        font-size: 0.5rem;
+    }
+
+    .edit-profile.m-2,
+    .edit-profile.btn.m-2 {
+        width: 15rem;
+    }
+
+    .edit-profile.btn.delete-btn.m-2,
+    .edit-profile.delete-btn.m-2 {
+        width: 15rem;
     }
 }

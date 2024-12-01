@@ -7,6 +7,8 @@ if (isset($_SESSION['user_id']) === false) {
     exit();
 }
 
+$edit_message = "";
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["submit"])) {
     try {
         $user_id = $_SESSION["user_id"];
@@ -41,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["submit"])) {
                         header("Location: profile.php");
                     }
                 } else {
-                    echo "Old password is incorrect.";
+                    $edit_message = "*Old password is incorrect.";
                 }
             }
         } else if (!empty($username) && !empty($newPassword) && !empty($oldPassword) && strlen($newPassword) >= 8) {
@@ -62,9 +64,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["submit"])) {
                         header("Location: profile.php");
                     } 
                 } else {
-                    echo "Old password is incorrect.";
+                    $edit_message = "*Old password is incorrect.";
                 }
             }
+        } else {
+            $edit_message = "*Password must be at least 8 character!";
         }
     } catch (Exception $error) {
         error_log($error->getMessage());
@@ -86,13 +90,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["submit"])) {
 </head>
 <body>
     <div class="container mt-5">
+        <a href="delete_acc.php" class="edit-profile delete-acc btn">Delete Account</a>
         <h1 class="text-center mb-4">Edit Profile</h1>
         <form action="edit_profile.php" method="POST" enctype="multipart/form-data">
             <div class="mb-4 text-center">
                 <label for="profilePhoto" class="form-label">Profile Photo</label>
                 <div>
-                    <img id="previewImage" src="../Assets/img/blank-profile-picture.png" 
-                        alt="Profile Preview" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                    <a href="profile_update.php" class="position-relative">
+                        <img id="previewImage" src="../Assets/profile-img/<?= $_SESSION['user_profile'] ?>" 
+                            alt="Profile Preview" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                            <i class="bi bi-pencil-square text-decoration-none text-bg-dark position-absolute"></i>
+                    </a>
                 </div>
             </div>
             <div class="mb-3">
@@ -100,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["submit"])) {
                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter a new username" value="">
             </div>
             <div class="mb-3">
-                <label for="oldPassword" class="form-label">Old Password</label>
+                <label for="oldPassword" class="form-label">Old Password<i class="text-danger ms-2"><?= $edit_message ?></i></label>
                 <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="Enter Your Old password"> 
                 </input>
             </div>
@@ -108,10 +116,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["submit"])) {
                 <label for="newPassword" class="form-label">New Password</label>
                 <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Enter a new password">
             </div>
-            <div class="text-center">
-                <a href="delete_acc.php" class="edit-profile">Delete Account</a>
-                <button name="submit" type="submit" class="edit-profile">Save Changes</button>
-                <a href="profile.php" class="edit-profile">Cancel</a>
+            <div class="text-center mt-5 mb-3">
+                <button name="submit" type="submit" class="edit-profile m-2">Save Changes</button>
+                <a href="profile.php" class="edit-profile btn m-2">Cancel</a>
             </div>
         </form>
     </div>

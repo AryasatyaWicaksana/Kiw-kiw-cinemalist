@@ -132,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"])) {
                 <input type="text" id="search" class="search" placeholder="Search...">
             </form>
             <a href="../Profile-Page/profile.php" class="profile-btn">
-                <img src="../Assets/img/blank-profile-picture.png" alt="Profile Picture" id="profile-picture">
+                <img src="../Assets/profile-img/<?= $_SESSION['user_profile'] ?>" alt="Profile Picture" id="profile-picture">
             </a>
         </div>
     </header>
