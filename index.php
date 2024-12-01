@@ -96,8 +96,8 @@
                 </div>
                 <div class="col-md-4 mb-1">
                     <h3>Follow Us</h3>
-                    <a href="https://github.com/Aryasatyawicaksana" class="text-white me-3"><i class="icon bi bi-github"></i></a>
-                    <a href="https://www.instagram.com/" class="text-white"><i class="icon bi bi-instagram"></i></a>
+                    <a href="https://github.com/Aryasatyawicaksana" target="_blank" class="text-white me-3"><i class="icon bi bi-github"></i></a>
+                    <a href="https://www.instagram.com/kiwkiw.cinemalist.official/" target="_blank" class="text-white"><i class="icon bi bi-instagram"></i></a>
                 </div>
                 <div class="col-md-4">
                     <h3>Contact</h3>
@@ -105,7 +105,7 @@
                 </div>
             </div>
             <hr class="my-3">
-            <p>&copy; 2024 Kiw Kiw Cinema List. All Rights Reserved.</p>
+            <i>&copy; 2024 Kiw Kiw Cinema List. All Rights Reserved.</i>
         </div>
     </footer>
 
