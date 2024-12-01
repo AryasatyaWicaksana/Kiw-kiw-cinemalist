@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["submit"])) {
                 }
             }
         } else {
-            $edit_message = "*Password must be at least 8 character!";
+            $edit_message = "*Old password is incorrect or Password not 8 character!";
         }
     } catch (Exception $error) {
         error_log($error->getMessage());
